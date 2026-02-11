@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сделано — RATATÁ</title>
+    <title>Про нас — RATATÁ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,64 +18,102 @@
         </a>
         <div class="nav-links">
             <a href="index.html">Главная</a>
-            <a href="portfolio.html" class="active">Сделано</a>
-            <a href="about.html">Про нас</a>
+            <a href="portfolio.html">Сделали</a>
+            <a href="about.html" class="active">Про нас</a>
         </div>
     </nav>
 
     <!-- ========== ЗАГОЛОВОК ========== -->
     <section class="page-header">
-        <h1>Сделано</h1>
-        <p>Наши работы и проекты</p>
+        <h1>Про нас</h1>
+        <p>Кто мы и что нами движет</p>
     </section>
 
-    <!-- ========== РАБОТЫ ========== -->
-    <section class="portfolio-section">
-        <div class="portfolio-grid">
+    <!-- ========== О СТУДИИ ========== -->
+    <section class="about-section">
+        <div class="about-text">
+            <h2>RATATÁ — это</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Nullam euismod, nisl eget aliquam ultricies, nunc nisl
+                aliquet nunc, quis aliquam nisl nunc quis nisl. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <p>
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum.
+            </p>
+        </div>
+    </section>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 1</div>
-                <h3>Название проекта</h3>
-                <p>Брендинг</p>
+    <!-- ========== КОМАНДА ========== -->
+    <section class="team-section">
+        <h2>Команда</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-photo-placeholder">Фото</div>
+                <h3>Имя Фамилия</h3>
+                <p>Основатель / Креативный директор</p>
             </div>
+        </div>
+    </section>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 2</div>
-                <h3>Название проекта</h3>
-                <p>Веб-дизайн</p>
+    <!-- ========== КОНТАКТЫ ========== -->
+    <section class="contacts-section-page">
+        <h2>Контакты</h2>
+        <div class="contacts-grid">
+            <div class="contact-item">
+                <h3>Почта</h3>
+                <p>hello@ratata.studio</p>
             </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 3</div>
-                <h3>Название проекта</h3>
-                <p>Айдентика</p>
+            <div class="contact-item">
+                <h3>Телеграм</h3>
+                <p>@ratata</p>
             </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 4</div>
-                <h3>Название проекта</h3>
-                <p>Графический дизайн</p>
+            <div class="contact-item">
+                <h3>Город</h3>
+                <p>Lorem ipsum</p>
             </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 5</div>
-                <h3>Название проекта</h3>
-                <p>Брендинг</p>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка проекта 6</div>
-                <h3>Название проекта</h3>
-                <p>Веб-дизайн</p>
-            </div>
-
         </div>
     </section>
 
     <!-- ========== ПОДВАЛ ========== -->
     <footer class="footer">
-        <p>© RATATÁ 2025</p>
+        <p>© RATATÁ 2026</p>
     </footer>
+
+    <!-- ========== КАСТОМНЫЙ КУРСОР ========== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <script>
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX - 4 + 'px';
+            dot.style.top = mouseY - 4 + 'px';
+        });
+
+        function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = ringX - 20 + 'px';
+            ring.style.top = ringY - 20 + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.querySelectorAll('a, .btn, .featured-item, .portfolio-item').forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+        });
+    </script>
 
 </body>
 </html>

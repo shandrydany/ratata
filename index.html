@@ -1,542 +1,101 @@
-/* =============================================
-   RATATÁ — стили сайта
-   ============================================= */
-
-
-/* ---------- СБРОС ---------- */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #ffffff;
-    color: #0055FF;
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1.6;
-}
-
-a {
-    color: #0055FF;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #003cc7;
-}
-
-
-/* ---------- МЕНЮ ---------- */
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 60px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo-img {
-    height: 40px;
-    width: auto;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.nav-links a {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-}
-
-.nav-links a.active {
-    border-bottom: 2px solid #0055FF;
-    padding-bottom: 2px;
-}
-
-.lang-switch {
-    border: 1px solid #0055FF;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 12px !important;
-}
-
-.lang-switch:hover {
-    background-color: #0055FF;
-    color: #ffffff !important;
-}
-
-
-/* ---------- HERO — ОГРОМНАЯ ТИПОГРАФИКА ---------- */
-
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 40px;
-    overflow: hidden;
-}
-
-.hero h1 {
-    font-size: 18vw;
-    font-weight: 700;
-    letter-spacing: 2vw;
-    text-transform: uppercase;
-    line-height: 0.9;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.hero-sub {
-    font-size: 2vw;
-    letter-spacing: 1vw;
-    text-transform: uppercase;
-    color: #6699ff;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out 0.3s;
-    animation-fill-mode: both;
-}
-
-.hero-desc {
-    max-width: 500px;
-    color: #6699ff;
-    font-size: 16px;
-    animation: fadeInUp 1s ease-out 0.6s;
-    animation-fill-mode: both;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ---------- ЗАГОЛОВОК СТРАНИЦЫ ---------- */
-
-.page-header {
-    padding: 160px 60px 80px;
-    text-align: center;
-}
-
-.page-header h1 {
-    font-size: 10vw;
-    font-weight: 700;
-    letter-spacing: 1vw;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.page-header p {
-    font-size: 18px;
-    color: #6699ff;
-    animation: fadeInUp 1s ease-out 0.3s;
-    animation-fill-mode: both;
-}
-
-
-/* ---------- СЕКЦИИ ---------- */
-
-section {
-    padding: 100px 60px;
-}
-
-section h2 {
-    font-size: 6vw;
-    font-weight: 700;
-    letter-spacing: 0.3vw;
-    text-transform: uppercase;
-    margin-bottom: 60px;
-}
-
-
-/* ---------- ИЗБРАННЫЕ РАБОТЫ ---------- */
-
-.featured-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 60px;
-}
-
-.featured-item {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.featured-item:nth-child(1) { animation-delay: 0.1s; }
-.featured-item:nth-child(2) { animation-delay: 0.2s; }
-.featured-item:nth-child(3) { animation-delay: 0.3s; }
-
-.featured-img-placeholder {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    background-color: #f0f5ff;
-    border: 1px solid #cce0ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #99bbff;
-    font-size: 14px;
-    margin-bottom: 15px;
-    transition: all 0.4s ease;
-}
-
-.featured-item:hover .featured-img-placeholder {
-    border-color: #0055FF;
-    transform: scale(1.02);
-}
-
-.featured-item h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.featured-item p {
-    color: #6699ff;
-    font-size: 14px;
-}
-
-
-/* ---------- ПОРТФОЛИО ---------- */
-
-.portfolio-section {
-    padding-top: 0;
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-}
-
-.portfolio-item {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.portfolio-item:nth-child(1) { animation-delay: 0.1s; }
-.portfolio-item:nth-child(2) { animation-delay: 0.2s; }
-.portfolio-item:nth-child(3) { animation-delay: 0.3s; }
-.portfolio-item:nth-child(4) { animation-delay: 0.4s; }
-.portfolio-item:nth-child(5) { animation-delay: 0.5s; }
-.portfolio-item:nth-child(6) { animation-delay: 0.6s; }
-
-.portfolio-img-placeholder {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    background-color: #f0f5ff;
-    border: 1px solid #cce0ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #99bbff;
-    font-size: 14px;
-    margin-bottom: 15px;
-    transition: all 0.4s ease;
-}
-
-.portfolio-item:hover .portfolio-img-placeholder {
-    border-color: #0055FF;
-    transform: scale(1.02);
-}
-
-.portfolio-item h3 {
-    font-size: 22px;
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-
-.portfolio-item p {
-    color: #6699ff;
-    font-size: 14px;
-}
-
-
-/* ---------- О СТУДИИ ---------- */
-
-.about-section {
-    padding-top: 0;
-}
-
-.about-text {
-    max-width: 700px;
-}
-
-.about-text h2 {
-    font-size: 36px;
-    margin-bottom: 30px;
-}
-
-.about-text p {
-    font-size: 18px;
-    line-height: 1.8;
-    color: #4488ff;
-    margin-bottom: 20px;
-}
-
-
-/* ---------- КОМАНДА ---------- */
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-}
-
-.team-member {
-    text-align: center;
-}
-
-.team-photo-placeholder {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: #f0f5ff;
-    border: 1px solid #cce0ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #99bbff;
-    margin: 0 auto 20px;
-}
-
-.team-member h3 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-.team-member p {
-    color: #6699ff;
-    font-size: 14px;
-}
-
-
-/* ---------- КОНТАКТЫ ---------- */
-
-.contacts-section-page {
-    padding: 100px 60px;
-}
-
-.contacts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-}
-
-.contact-item h3 {
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #6699ff;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-.contact-item p {
-    font-size: 24px;
-    font-weight: 500;
-}
-
-
-/* ---------- ВИДЕО В ПОРТФОЛИО ---------- */
-
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    margin-bottom: 15px;
-    overflow: hidden;
-    border: 1px solid #cce0ff;
-    transition: border-color 0.3s;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.portfolio-item:hover .video-wrapper {
-    border-color: #0055FF;
-}
-
-.portfolio-item video {
-    width: 100%;
-    display: block;
-    margin-bottom: 15px;
-    border: 1px solid #cce0ff;
-    transition: border-color 0.3s;
-}
-
-.portfolio-item:hover video {
-    border-color: #0055FF;
-}
-
-
-/* ---------- КНОПКА ---------- */
-
-.btn {
-    display: inline-block;
-    border: 1px solid #0055FF;
-    padding: 15px 40px;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-}
-
-.btn:hover {
-    background-color: #0055FF;
-    color: #ffffff;
-}
-
-
-/* ---------- ПОДВАЛ ---------- */
-
-.footer {
-    padding: 40px 60px;
-    border-top: 1px solid #cce0ff;
-    text-align: center;
-    color: #99bbff;
-    font-size: 14px;
-}
-
-
-/* ---------- КАСТОМНЫЙ КУРСОР — СКРЫТ ---------- */
-
-/*
-* {
-    cursor: none !important;
-}
-
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #0055FF;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 10001;
-    transition: opacity 0.3s;
-}
-
-.cursor-ring {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #0055FF;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 10000;
-    transition: opacity 0.3s;
-}
-
-.cursor-rat {
-    position: fixed;
-    pointer-events: none;
-    z-index: 10002;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.cursor-rat img {
-    width: 32px;
-    height: 32px;
-}
-*/
-
-
-/* ---------- АДАПТИВ ---------- */
-
-@media (max-width: 768px) {
-
-    .nav {
-        padding: 20px 25px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
-    .nav-links a {
-        font-size: 11px;
-    }
-
-    .logo-img {
-        height: 30px;
-    }
-
-    .hero h1 {
-        font-size: 15vw;
-        letter-spacing: 1.5vw;
-    }
-
-    .hero-sub {
-        font-size: 3.5vw;
-        letter-spacing: 1.5vw;
-    }
-
-    section {
-        padding: 60px 25px;
-    }
-
-    section h2 {
-        font-size: 8vw;
-    }
-
-    .page-header {
-        padding: 120px 25px 40px;
-    }
-
-    .page-header h1 {
-        font-size: 12vw;
-    }
-
-    .featured-grid,
-    .portfolio-grid,
-    .team-grid,
-    .contacts-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contacts-section-page {
-        padding: 60px 25px;
-    }
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATATÁ — Творческая мастерская</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ========== МЕНЮ ========== -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">
+            <img src="images/logo.png" alt="RATATÁ" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Главная</a>
+            <a href="portfolio.html">Сделали</a>
+            <a href="about.html">Про нас</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <h1>RATATÁ</h1>
+        <p class="hero-sub">Творческая мастерская</p>
+        <p class="hero-desc">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </section>
+
+    <!-- ========== СДЕЛАЛИ ========== -->
+    <section class="featured">
+        <h2>Сделали</h2>
+        <div class="featured-grid">
+
+            <div class="featured-item">
+                <div class="featured-img-placeholder">Картинка 1</div>
+                <h3>Название</h3>
+                <p>Lorem ipsum dolor sit amet</p>
+            </div>
+
+            <div class="featured-item">
+                <div class="featured-img-placeholder">Картинка 2</div>
+                <h3>Название</h3>
+                <p>Lorem ipsum dolor sit amet</p>
+            </div>
+
+            <div class="featured-item">
+                <div class="featured-img-placeholder">Картинка 3</div>
+                <h3>Название</h3>
+                <p>Lorem ipsum dolor sit amet</p>
+            </div>
+
+        </div>
+        <a href="portfolio.html" class="btn">Смотреть все работы →</a>
+    </section>
+
+    <!-- ========== ПОДВАЛ ========== -->
+    <footer class="footer">
+        <p>© RATATÁ 2026</p>
+    </footer>
+
+    <!-- ========== КАСТОМНЫЙ КУРСОР ========== -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <script>
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.left = mouseX - 4 + 'px';
+            dot.style.top = mouseY - 4 + 'px';
+        });
+
+        function animate() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.left = ringX - 20 + 'px';
+            ring.style.top = ringY - 20 + 'px';
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        document.querySelectorAll('a, .btn, .featured-item, .portfolio-item').forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+        });
+    </script>
+
+</body>
+</html>

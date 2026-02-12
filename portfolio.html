@@ -12,7 +12,7 @@
 <body>
 
     <!-- ========== МЕНЮ ========== -->
-    <nav class="nav">
+    <nav class="nav" id="nav">
         <a href="index.html" class="nav-logo">
             <img src="images/logo.png" alt="RATATÁ" class="logo-img">
         </a>
@@ -29,52 +29,83 @@
         <p>Наши работы и проекты</p>
     </section>
 
-    <!-- ========== РАБОТЫ ========== -->
+    <!-- ========== РАБОТЫ (7. Полноэкранные изображения) ========== -->
     <section class="portfolio-section">
-        <div class="portfolio-grid">
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 1</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 1</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Брендинг</p>
             </div>
+        </div>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 2</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 2</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Веб-дизайн</p>
             </div>
+        </div>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 3</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 3</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Айдентика</p>
             </div>
+        </div>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 4</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 4</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Графический дизайн</p>
             </div>
+        </div>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 5</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 5</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Брендинг</p>
             </div>
+        </div>
 
-            <div class="portfolio-item">
-                <div class="portfolio-img-placeholder">Картинка 6</div>
+        <div class="case reveal">
+            <div class="case-img">
+                <div class="case-img-placeholder">Полноэкранная картинка 6</div>
+            </div>
+            <div class="case-info">
                 <h3>Название</h3>
                 <p>Веб-дизайн</p>
             </div>
-
         </div>
+
     </section>
 
-    <!-- ========== ПОДВАЛ ========== -->
+    <!-- ========== ФУТЕР ========== -->
     <footer class="footer">
-        <p>© RATATÁ 2026</p>
+        <div class="footer-cta reveal">
+            <h2>Давайте работать вместе</h2>
+            <a href="about.html" class="btn btn-white">
+                <span class="btn-text">Написать нам</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <p>© RATATÁ 2026</p>
+        </div>
     </footer>
 
     <!-- ========== КАСТОМНЫЙ КУРСОР ========== -->
@@ -103,10 +134,30 @@
         }
         animate();
 
-        document.querySelectorAll('a, .btn, .featured-item, .portfolio-item').forEach(el => {
+        document.querySelectorAll('a, .btn, .case').forEach(el => {
             el.addEventListener('mouseenter', () => ring.classList.add('hover'));
             el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
         });
+
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        reveals.forEach(el => observer.observe(el));
     </script>
 
 </body>

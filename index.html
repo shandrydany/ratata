@@ -11,8 +11,8 @@
 </head>
 <body>
 
-    <!-- ========== МЕНЮ ========== -->
-    <nav class="nav">
+    <!-- ========== МЕНЮ (9. Sticky: прозрачная → с фоном) ========== -->
+    <nav class="nav" id="nav">
         <a href="index.html" class="nav-logo">
             <img src="images/logo.png" alt="RATATÁ" class="logo-img">
         </a>
@@ -23,7 +23,7 @@
         </div>
     </nav>
 
-    <!-- ========== HERO ========== -->
+    <!-- ========== HERO (1. Крупный заголовок) ========== -->
     <section class="hero">
         <h1>RATATÁ</h1>
         <p class="hero-sub">Творческая мастерская</p>
@@ -33,36 +33,72 @@
         </p>
     </section>
 
-    <!-- ========== СДЕЛАЛИ ========== -->
+    <!-- ========== СДЕЛАЛИ (6. Bento-сетка) ========== -->
     <section class="featured">
-        <h2>Сделали</h2>
-        <div class="featured-grid">
+        <h2 class="reveal">Сделали</h2>
+        <div class="bento-grid">
 
-            <div class="featured-item">
-                <div class="featured-img-placeholder">Картинка 1</div>
-                <h3>Название</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+            <div class="bento-item bento-large reveal">
+                <div class="bento-img">
+                    <div class="bento-img-placeholder">Картинка 1</div>
+                </div>
+                <div class="bento-info">
+                    <h3>Название</h3>
+                    <p>Брендинг</p>
+                </div>
             </div>
 
-            <div class="featured-item">
-                <div class="featured-img-placeholder">Картинка 2</div>
-                <h3>Название</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+            <div class="bento-item bento-small reveal">
+                <div class="bento-img">
+                    <div class="bento-img-placeholder">Картинка 2</div>
+                </div>
+                <div class="bento-info">
+                    <h3>Название</h3>
+                    <p>Веб-дизайн</p>
+                </div>
             </div>
 
-            <div class="featured-item">
-                <div class="featured-img-placeholder">Картинка 3</div>
-                <h3>Название</h3>
-                <p>Lorem ipsum dolor sit amet</p>
+            <div class="bento-item bento-small reveal">
+                <div class="bento-img">
+                    <div class="bento-img-placeholder">Картинка 3</div>
+                </div>
+                <div class="bento-info">
+                    <h3>Название</h3>
+                    <p>Айдентика</p>
+                </div>
+            </div>
+
+            <div class="bento-item bento-wide reveal">
+                <div class="bento-img">
+                    <div class="bento-img-placeholder">Картинка 4</div>
+                </div>
+                <div class="bento-info">
+                    <h3>Название</h3>
+                    <p>Графический дизайн</p>
+                </div>
             </div>
 
         </div>
-        <a href="portfolio.html" class="btn">Смотреть все работы →</a>
+
+        <!-- 8. Кнопка с hover-анимацией -->
+        <a href="portfolio.html" class="btn">
+            <span class="btn-text">Смотреть все работы</span>
+            <span class="btn-arrow">→</span>
+        </a>
     </section>
 
-    <!-- ========== ПОДВАЛ ========== -->
+    <!-- ========== ФУТЕР (10. Крупный CTA) ========== -->
     <footer class="footer">
-        <p>© RATATÁ 2026</p>
+        <div class="footer-cta reveal">
+            <h2>Давайте работать вместе</h2>
+            <a href="about.html" class="btn btn-white">
+                <span class="btn-text">Написать нам</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <p>© RATATÁ 2026</p>
+        </div>
     </footer>
 
     <!-- ========== КАСТОМНЫЙ КУРСОР ========== -->
@@ -70,6 +106,7 @@
     <div class="cursor-ring" id="cursorRing"></div>
 
     <script>
+        /* --- Курсор --- */
         const dot = document.getElementById('cursorDot');
         const ring = document.getElementById('cursorRing');
         let mouseX = 0, mouseY = 0;
@@ -91,10 +128,32 @@
         }
         animate();
 
-        document.querySelectorAll('a, .btn, .featured-item, .portfolio-item').forEach(el => {
+        document.querySelectorAll('a, .btn, .bento-item').forEach(el => {
             el.addEventListener('mouseenter', () => ring.classList.add('hover'));
             el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
         });
+
+        /* --- 9. Навигация: прозрачная → с фоном --- */
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        /* --- 5. Fade-in при скролле --- */
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        reveals.forEach(el => observer.observe(el));
     </script>
 
 </body>

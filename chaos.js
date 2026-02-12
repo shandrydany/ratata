@@ -63,60 +63,61 @@ const dot = document.getElementById('cursorDot');
 const ring = document.getElementById('cursorRing');
 let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = mouseX - 4 + 'px';
-    dot.style.top = mouseY - 4 + 'px';
-});
-
-function animateCursor() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.left = ringX - 20 + 'px';
-    ring.style.top = ringY - 20 + 'px';
-    requestAnimationFrame(animateCursor);
-}
-animateCursor();
-
-// Меняем форму и цвет каждые 3 сек
-const cursorShapes = ['circle', 'cross', 'star', 'square', 'diamond'];
-const cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
-let currentShape = 'circle';
-let currentColor = '#0055FF';
-
-function changeCursor() {
-    currentShape = cursorShapes[Math.floor(Math.random() * cursorShapes.length)];
-    currentColor = cursorColors[Math.floor(Math.random() * cursorColors.length)];
-
-    // Убираем все классы форм
-    cursorShapes.forEach(s => {
-        dot.classList.remove('shape-' + s);
-        ring.classList.remove('shape-' + s);
+if (dot && ring) {
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = mouseX - 4 + 'px';
+        dot.style.top = mouseY - 4 + 'px';
     });
 
-    dot.classList.add('shape-' + currentShape);
-    ring.classList.add('shape-' + currentShape);
+    function animateCursor() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        ring.style.left = ringX - 20 + 'px';
+        ring.style.top = ringY - 20 + 'px';
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 
-    dot.style.setProperty('--c', currentColor);
-    ring.style.setProperty('--c', currentColor);
+    // Меняем форму и цвет каждые 3 сек
+    const cursorShapes = ['circle', 'cross', 'star', 'square', 'diamond'];
+    const cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
+
+    function changeCursor() {
+        const shape = cursorShapes[Math.floor(Math.random() * cursorShapes.length)];
+        const color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
+
+        cursorShapes.forEach(s => {
+            dot.classList.remove('shape-' + s);
+            ring.classList.remove('shape-' + s);
+        });
+
+        dot.classList.add('shape-' + shape);
+        ring.classList.add('shape-' + shape);
+
+        dot.style.setProperty('--c', color);
+        ring.style.setProperty('--c', color);
+    }
+
+    changeCursor();
+    setInterval(changeCursor, 3000);
+
+    // Hover
+    document.querySelectorAll('a, .btn, .bento-item, .service-card, .team-member').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
 }
-
-changeCursor();
-setInterval(changeCursor, 3000);
-
-// Hover
-document.querySelectorAll('a, .btn, .bento-item, .service-card, .team-member').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-});
 
 
 // --- НАВИГАЦИЯ ---
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-});
+if (nav) {
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
 
 
 // --- FADE-IN ---
@@ -133,18 +134,20 @@ const symbols = ['✦', '◈', '▲', '●', '◆', '★', '✕', '◎', '▪', 
 const flyColors = ['#0055FF', '#FFB6D9', '#000000'];
 const flyContainer = document.getElementById('flyingSymbols');
 
-function spawnSymbol() {
-    const sym = document.createElement('span');
-    sym.className = 'fly-sym';
-    sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    sym.style.left = Math.random() * 100 + 'vw';
-    sym.style.animationDuration = (5 + Math.random() * 10) + 's';
-    sym.style.fontSize = (10 + Math.random() * 20) + 'px';
-    sym.style.color = flyColors[Math.floor(Math.random() * flyColors.length)];
-    flyContainer.appendChild(sym);
-    setTimeout(() => sym.remove(), 15000);
+if (flyContainer) {
+    function spawnSymbol() {
+        const sym = document.createElement('span');
+        sym.className = 'fly-sym';
+        sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        sym.style.left = Math.random() * 100 + 'vw';
+        sym.style.animationDuration = (5 + Math.random() * 10) + 's';
+        sym.style.fontSize = (10 + Math.random() * 20) + 'px';
+        sym.style.color = flyColors[Math.floor(Math.random() * flyColors.length)];
+        flyContainer.appendChild(sym);
+        setTimeout(() => sym.remove(), 15000);
+    }
+    setInterval(spawnSymbol, 1500);
 }
-setInterval(spawnSymbol, 1500);
 
 
 // --- ASCII КРЫСЫ В РАНДОМНЫХ МЕСТАХ ---
@@ -183,33 +186,100 @@ const rats = [
   |つ🧀|`
 ];
 
-function spawnRat() {
-    const rat = document.createElement('div');
-    rat.className = 'random-rat';
-    rat.innerHTML = '<pre>' + rats[Math.floor(Math.random() * rats.length)] + '</pre>';
+if (ratContainer) {
+    function spawnRat() {
+        const rat = document.createElement('div');
+        rat.className = 'random-rat';
+        rat.innerHTML = '<pre>' + rats[Math.floor(Math.random() * rats.length)] + '</pre>';
 
-    const maxX = window.innerWidth - 150;
-    const maxY = Math.max(document.documentElement.scrollHeight, 2000) - 150;
+        const maxX = window.innerWidth - 150;
+        const maxY = Math.max(document.documentElement.scrollHeight, 2000) - 150;
 
-    rat.style.left = Math.floor(Math.random() * maxX) + 'px';
-    rat.style.top = Math.floor(Math.random() * maxY) + 'px';
-    rat.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
+        rat.style.left = Math.floor(Math.random() * maxX) + 'px';
+        rat.style.top = Math.floor(Math.random() * maxY) + 'px';
+        rat.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
 
-    // Случайный цвет крысы
-    const ratColors = ['#0055FF', '#FFB6D9', '#cccccc', '#000000'];
-    rat.style.color = ratColors[Math.floor(Math.random() * ratColors.length)];
+        const ratColors = ['#0055FF', '#FFB6D9', '#cccccc', '#000000'];
+        rat.style.color = ratColors[Math.floor(Math.random() * ratColors.length)];
 
-    ratContainer.appendChild(rat);
+        ratContainer.appendChild(rat);
 
-    const lifetime = 6000 + Math.random() * 8000;
-    setTimeout(() => {
-        rat.style.opacity = '0';
-        setTimeout(() => rat.remove(), 1000);
-    }, lifetime);
+        const lifetime = 6000 + Math.random() * 8000;
+        setTimeout(() => {
+            rat.style.opacity = '0';
+            setTimeout(() => rat.remove(), 1000);
+        }, lifetime);
+    }
+
+    function scheduleRat() {
+        spawnRat();
+        setTimeout(scheduleRat, 2000 + Math.random() * 4000);
+    }
+    scheduleRat();
 }
 
-function scheduleRat() {
-    spawnRat();
-    setTimeout(scheduleRat, 2000 + Math.random() * 4000);
+
+// --- СЛОМАННЫЙ МОНИТОР: ЗЕЛЁНЫЕ ПОЛОСЫ ---
+const scanContainer = document.getElementById('scanlines');
+
+if (scanContainer) {
+    function spawnScanline() {
+        const line = document.createElement('div');
+        line.className = 'scanline';
+        const height = Math.random() > 0.7 ? (20 + Math.random() * 80) : (2 + Math.random() * 8);
+        line.style.height = height + 'px';
+        line.style.top = '-' + height + 'px';
+        if (Math.random() > 0.7) line.classList.add('thick');
+        const duration = 1.5 + Math.random() * 3;
+        line.style.animationDuration = duration + 's';
+        scanContainer.appendChild(line);
+        setTimeout(() => line.remove(), duration * 1000 + 500);
+    }
+
+    function spawnGlitchBar() {
+        const bar = document.createElement('div');
+        bar.className = 'scanline glitch-bar';
+        bar.style.height = (3 + Math.random() * 15) + 'px';
+        bar.style.top = Math.random() * 100 + 'vh';
+        scanContainer.appendChild(bar);
+        setTimeout(() => bar.remove(), 200);
+    }
+
+    function greenFlash() {
+        const flash = document.createElement('div');
+        flash.className = 'green-flash';
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 150);
+    }
+
+    function scheduleScanline() {
+        spawnScanline();
+        setTimeout(scheduleScanline, 2000 + Math.random() * 6000);
+    }
+
+    function scheduleGlitchBar() {
+        spawnGlitchBar();
+        setTimeout(scheduleGlitchBar, 3000 + Math.random() * 7000);
+    }
+
+    function scheduleFlash() {
+        greenFlash();
+        setTimeout(scheduleFlash, 10000 + Math.random() * 20000);
+    }
+
+    function glitchBurst() {
+        let count = 3 + Math.floor(Math.random() * 6);
+        let i = 0;
+        const interval = setInterval(() => {
+            spawnGlitchBar();
+            i++;
+            if (i >= count) clearInterval(interval);
+        }, 50);
+        setTimeout(glitchBurst, 15000 + Math.random() * 25000);
+    }
+
+    scheduleScanline();
+    scheduleGlitchBar();
+    scheduleFlash();
+    setTimeout(glitchBurst, 5000 + Math.random() * 10000);
 }
-scheduleRat();

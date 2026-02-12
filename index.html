@@ -1,246 +1,40 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RATATÁ — Творческая мастерская</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* =============================================
+   RATATÁ — ДИЧЬ БЕЗ КОМПРОМИССОВ
+   ============================================= */
 
-    <!-- VHS-ЗЕРНО -->
-    <div class="vhs-noise"></div>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <!-- ASCII КРЫСА -->
-    <div class="ascii-rat">
-<pre>
-    ___
-   (o o)
-  (  >  )
-   | | |
-  RATATÁ
-</pre>
-    </div>
+body {
+    background-color: #ffffff;
+    color: #0055FF;
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
 
-    <!-- ========== МЕНЮ ========== -->
-    <nav class="nav" id="nav">
-        <a href="index.html" class="nav-logo">
-            <img src="images/logo.png" alt="RATATÁ" class="logo-img">
-        </a>
-        <div class="nav-links">
-            <a href="index.html" class="active">Главная</a>
-            <a href="portfolio.html">Сделали</a>
-            <a href="about.html">Про нас</a>
-        </div>
-    </nav>
+a {
+    color: #0055FF;
+    text-decoration: none;
+}
 
-    <!-- ========== HERO ========== -->
-    <section class="hero">
-        <h1 class="glitch" data-text="RATATÁ">RATATÁ</h1>
-        <p class="hero-sub">Творческая мастерская</p>
-        <p class="hero-desc random-phrase"></p>
-    </section>
+a:hover {
+    color: #003cc7;
+}
 
-    <!-- ========== СДЕЛАЛИ ========== -->
-    <section class="featured">
-        <h2 class="reveal glitch" data-text="Сделали">Сделали</h2>
-        <div class="bento-grid">
 
-            <div class="bento-item bento-large reveal">
-                <div class="bento-img">
-                    <div class="bento-img-placeholder">Картинка 1</div>
-                </div>
-                <div class="bento-info">
-                    <h3>Название</h3>
-                    <p>Брендинг</p>
-                </div>
-            </div>
+/* ============================================
+   VHS-ЗЕРНО
+   ============================================ */
 
-            <div class="bento-item bento-small reveal">
-                <div class="bento-img">
-                    <div class="bento-img-placeholder">Картинка 2</div>
-                </div>
-                <div class="bento-info">
-                    <h3>Название</h3>
-                    <p>Веб-дизайн</p>
-                </div>
-            </div>
-
-            <div class="bento-item bento-small reveal">
-                <div class="bento-img">
-                    <div class="bento-img-placeholder">Картинка 3</div>
-                </div>
-                <div class="bento-info">
-                    <h3>Название</h3>
-                    <p>Айдентика</p>
-                </div>
-            </div>
-
-            <div class="bento-item bento-wide reveal">
-                <div class="bento-img">
-                    <div class="bento-img-placeholder">Картинка 4</div>
-                </div>
-                <div class="bento-info">
-                    <h3>Название</h3>
-                    <p>Графический дизайн</p>
-                </div>
-            </div>
-
-        </div>
-
-        <a href="portfolio.html" class="btn">
-            <span class="btn-text">Смотреть все работы</span>
-            <span class="btn-arrow">▶</span>
-        </a>
-    </section>
-
-    <!-- ========== ФУТЕР ========== -->
-    <footer class="footer">
-        <div class="footer-cta reveal">
-            <h2 class="glitch" data-text="Давайте работать вместе">Давайте работать вместе</h2>
-            <a href="about.html" class="btn btn-white">
-                <span class="btn-text">Написать нам</span>
-                <span class="btn-arrow">▶</span>
-            </a>
-        </div>
-        <div class="footer-bottom">
-            <p class="random-footer"></p>
-        </div>
-    </footer>
-
-    <!-- ========== КУРСОР ========== -->
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-
-    <!-- ========== СЛУЧАЙНЫЕ СИМВОЛЫ (летают по экрану) ========== -->
-    <div class="flying-symbols" id="flyingSymbols"></div>
-
-    <script>
-        /* ============================================
-           RATATÁ — ДИЧЬ БЕЗ КОМПРОМИССОВ
-           ============================================ */
-
-        // --- ASCII в консоли ---
-        console.log('%c' + `
-    ___
-   (o o)
-  (  >  )
-   | | |
-  RATATÁ
-  
-  ты нашёл секрет 🐀
-        `, 'color: #0055FF; font-size: 14px; font-family: monospace;');
-
-        // --- Случайные фразы ---
-        const phrases = [
-            'делаем дичь с душой',
-            'пикселы не врут',
-            'тут был я',
-            'крыса одобряет',
-            'ctrl+z не поможет'
-        ];
-
-        const footerPhrases = [
-            '© RATATÁ 2026',
-            'делаем дичь с душой',
-            'пикселы не врут',
-            'тут был я',
-            '⚡ powered by chaos',
-            '🐀 ratata forever',
-            'ещё не всё',
-            'а ты скроллишь'
-        ];
-
-        document.querySelector('.random-phrase').textContent =
-            phrases[Math.floor(Math.random() * phrases.length)];
-        document.querySelector('.random-footer').textContent =
-            footerPhrases[Math.floor(Math.random() * footerPhrases.length)];
-
-        // --- Курсор: движение ---
-        const dot = document.getElementById('cursorDot');
-        const ring = document.getElementById('cursorRing');
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            dot.style.left = mouseX - 4 + 'px';
-            dot.style.top = mouseY - 4 + 'px';
-        });
-
-        function animateCursor() {
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-            ring.style.left = ringX - 20 + 'px';
-            ring.style.top = ringY - 20 + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // --- Курсор: меняет форму и цвет каждые 2 сек ---
-        const cursorShapes = ['circle', 'cross', 'star', 'square', 'diamond'];
-        const cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
-
-        setInterval(() => {
-            const shape = cursorShapes[Math.floor(Math.random() * cursorShapes.length)];
-            const color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
-
-            dot.className = 'cursor-dot shape-' + shape;
-            ring.className = 'cursor-ring shape-' + shape;
-
-            dot.style.setProperty('--cursor-color', color);
-            ring.style.setProperty('--cursor-color', color);
-        }, 2000);
-
-        // --- Hover ---
-        document.querySelectorAll('a, .btn, .bento-item').forEach(el => {
-            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-        });
-
-        // --- Навигация ---
-        const nav = document.getElementById('nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // --- Fade-in ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- Летающие символы ---
-        const symbols = ['✦', '◈', '▲', '●', '◆', '★', '✕', '◎', '▪', '♦', '🐀'];
-        const container = document.getElementById('flyingSymbols');
-
-        function spawnSymbol() {
-            const sym = document.createElement('span');
-            sym.className = 'fly-sym';
-            sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            sym.style.left = Math.random() * 100 + 'vw';
-            sym.style.animationDuration = (5 + Math.random() * 10) + 's';
-            sym.style.fontSize = (10 + Math.random() * 20) + 'px';
-            sym.style.color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
-            container.appendChild(sym);
-            setTimeout(() => sym.remove(), 15000);
-        }
-
-        setInterval(spawnSymbol, 1500);
-
-        // --- Меняем фразу футера каждые 5 сек ---
-        setInterval(() => {
-            document.querySelector('.random-footer').textContent =
-                footerPhrases[Math.floor(Math.random() * footerPhrases.length)];
-        }, 5000);
-    </script>
-
-</body>
-</html>
+.vhs-noise {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;

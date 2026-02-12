@@ -11,6 +11,18 @@
 </head>
 <body>
 
+    <div class="vhs-noise"></div>
+
+    <div class="ascii-rat">
+<pre>
+    ___
+   (o o)
+  (  >  )
+   | | |
+  RATATÁ
+</pre>
+    </div>
+
     <!-- ========== МЕНЮ ========== -->
     <nav class="nav" id="nav">
         <a href="index.html" class="nav-logo">
@@ -25,11 +37,11 @@
 
     <!-- ========== ЗАГОЛОВОК ========== -->
     <section class="page-header">
-        <h1>Сделали</h1>
+        <h1 class="glitch" data-text="Сделали">Сделали</h1>
         <p>Наши работы и проекты</p>
     </section>
 
-    <!-- ========== РАБОТЫ (7. Полноэкранные изображения) ========== -->
+    <!-- ========== РАБОТЫ ========== -->
     <section class="portfolio-section">
 
         <div class="case reveal">
@@ -97,42 +109,69 @@
     <!-- ========== ФУТЕР ========== -->
     <footer class="footer">
         <div class="footer-cta reveal">
-            <h2>Давайте работать вместе</h2>
+            <h2 class="glitch" data-text="Давайте работать вместе">Давайте работать вместе</h2>
             <a href="about.html" class="btn btn-white">
                 <span class="btn-text">Написать нам</span>
-                <span class="btn-arrow">→</span>
+                <span class="btn-arrow">▶</span>
             </a>
         </div>
         <div class="footer-bottom">
-            <p>© RATATÁ 2026</p>
+            <p class="random-footer"></p>
         </div>
     </footer>
 
-    <!-- ========== КАСТОМНЫЙ КУРСОР ========== -->
+    <!-- ========== КУРСОР ========== -->
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
+    <div class="flying-symbols" id="flyingSymbols"></div>
 
     <script>
+        console.log('%c' + `
+    ___
+   (o o)
+  (  >  )
+   | | |
+  RATATÁ  🐀
+        `, 'color: #FFB6D9; font-size: 14px; font-family: monospace;');
+
+        const footerPhrases = [
+            '© RATATÁ 2026', 'делаем дичь с душой', 'пикселы не врут',
+            'тут был я', '⚡ powered by chaos', '🐀 ratata forever',
+            'ещё не всё', 'а ты скроллишь'
+        ];
+        document.querySelector('.random-footer').textContent =
+            footerPhrases[Math.floor(Math.random() * footerPhrases.length)];
+
         const dot = document.getElementById('cursorDot');
         const ring = document.getElementById('cursorRing');
-        let mouseX = 0, mouseY = 0;
-        let ringX = 0, ringY = 0;
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             dot.style.left = mouseX - 4 + 'px';
             dot.style.top = mouseY - 4 + 'px';
         });
 
-        function animate() {
+        function animateCursor() {
             ringX += (mouseX - ringX) * 0.15;
             ringY += (mouseY - ringY) * 0.15;
             ring.style.left = ringX - 20 + 'px';
             ring.style.top = ringY - 20 + 'px';
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateCursor);
         }
-        animate();
+        animateCursor();
+
+        const cursorShapes = ['circle', 'cross', 'star', 'square', 'diamond'];
+        const cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
+
+        setInterval(() => {
+            const shape = cursorShapes[Math.floor(Math.random() * cursorShapes.length)];
+            const color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
+            dot.className = 'cursor-dot shape-' + shape;
+            ring.className = 'cursor-ring shape-' + shape;
+            dot.style.setProperty('--cursor-color', color);
+            ring.style.setProperty('--cursor-color', color);
+        }, 2000);
 
         document.querySelectorAll('a, .btn, .case').forEach(el => {
             el.addEventListener('mouseenter', () => ring.classList.add('hover'));
@@ -141,23 +180,35 @@
 
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            nav.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        reveals.forEach(el => observer.observe(el));
+        const symbols = ['✦', '◈', '▲', '●', '◆', '★', '✕', '◎', '▪', '♦', '🐀'];
+        const container = document.getElementById('flyingSymbols');
+        function spawnSymbol() {
+            const sym = document.createElement('span');
+            sym.className = 'fly-sym';
+            sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            sym.style.left = Math.random() * 100 + 'vw';
+            sym.style.animationDuration = (5 + Math.random() * 10) + 's';
+            sym.style.fontSize = (10 + Math.random() * 20) + 'px';
+            sym.style.color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
+            container.appendChild(sym);
+            setTimeout(() => sym.remove(), 15000);
+        }
+        setInterval(spawnSymbol, 1500);
+
+        setInterval(() => {
+            document.querySelector('.random-footer').textContent =
+                footerPhrases[Math.floor(Math.random() * footerPhrases.length)];
+        }, 5000);
     </script>
 
 </body>

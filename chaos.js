@@ -1,82 +1,34 @@
-/* ============================================
-   RATATÁ — ДИЧЬ БЕЗ КОМПРОМИССОВ
-   ============================================ */
-
-console.log('%c\n     🐀\n  ╱|、\n (˚ˎ 。7\n  |、˜〵\n  RATATÁ\n', 'color: #0055FF; font-size: 14px; font-family: monospace;');
+console.log('%c\n     🐀\n  ╱|、\n (˚ˎ 。7\n  |、˜〵\n  RATATÁ\n', 'color: #0055FF; font-size: 14px;');
 
 var homerQuotes = [
     'Гнев, богиня, воспой Ахиллеса, Пелеева сына',
     'Муза, скажи мне о том многоопытном муже',
     'Встала из мрака младая с перстами пурпурными Эос',
     'Словно листья в лесу, таковы поколения людей',
-    'Из всех созданий, что дышат и ходят по нашей земле, человек самый жалкий',
     'Лучше быть батраком у бедняка, чем царём над мёртвыми',
     'Мёд по устам, а в груди его помыслы были иные',
-    'Между блаженных богов нерушимая вспыхнула распря',
     'Море винноцветное, тёмное, бесприютное',
     'Сердце из камня у тебя, а не из плоти',
-    'Так говорил он, и слёзы лились по щекам его тёмным',
     'И полетела душа его в мрачное царство Аида',
     'Кто же меня покалечил? Никто!',
-    'Винноцветное море шумело, ударяясь о скалы',
     'Одиссей многоумный ответил ему, усмехаясь',
     'Были мы в битвах, и дух наш ещё не угас',
     'Тяжко стонала земля под ногами бегущих',
-    'Боги — они не для всех одинаково милостивы',
-    'Ночь наступила, и спать хорошо, если дело исполнено',
     'Есть время для слов, и есть время для сна',
-    'Бросил он жребий свой в шлем Агамемнона, сына Атрея',
-    'Крепко смыкая ресницы, как будто железная дрёма',
-    'Нет ничего на земле погибельней и злее, чем женщина',
-    'Пусть земля мне будет пухом',
     'Бойся данайцев, дары приносящих',
-    'Немногие сыновья подобны своим отцам',
-    'Язык у людей гибок; речей в нём край непочатый',
-    'Злую участь смертным назначили боги',
-    'Двух одинаковых дней не бывает у смертных',
     'Дым отечества нам сладок и приятен',
-    'Прячь великую скорбь под безмолвным сердцем',
     'Стыд погибающим — великая сила',
-    'Скрывай свои замыслы даже от ближних',
-    'Не властны мы над жизнью и над смертью',
-    'Каждый стоящий у власти мнит себя мудрым',
-    'Жадность была и будет началом всех бедствий',
     'Глупец познаёт только то, что свершилось',
     'И камень точит вода, что струится упорно',
     'Блажен, кто дерзает, ибо удача сопутствует смелым',
-    'О скитаньях его поведай и нам хотя бы отчасти',
-    'Странник, приди и скажи лакедемонянам, что мы пали',
-    'Силой великой дышало лицо его, точно у зверя',
-    'Десять лет осаждали мы город великий Приама',
-    'Ни один трус не получит от судьбы щедрого дара',
-    'Медленно зрей: поспешивший увянет до срока',
-    'Легкомыслие — худшее, что есть в людях',
-    'И поднял он крик, подобный крику десяти тысяч воинов',
-    'Оружие подняв, шагнул он навстречу судьбе',
-    'Тот, кто бежит, — спину свою подставляет для стрел',
     'Зевс-громовержец кивнул, и Олимп содрогнулся',
-    'Уже горели корабли, и пламя лизало канаты',
-    'Кони несли колесницу, и пыль поднималась до неба',
-    'Копьё вонзилось в щит, и медь зазвенела, как колокол',
     'Он пал, и доспехи его зазвенели над ним',
     'Афина-Паллада направила руку героя',
-    'Гектор стоял перед стенами Трои, и ветер трепал его плащ',
-    'Текли по равнине два войска, как два потока весенних',
     'Ахиллес ответил: я знаю свой рок, и он мне не страшен',
-    'Навсикая белорукая бросила мяч подружкам',
     'Пенелопа ткала и распускала свой бесконечный покров',
-    'Телемах взглянул на отца и не узнал его',
-    'Цирцея протянула кубок, и спутники Одиссея забыли дорогу домой',
-    'Сирены пели, и канаты скрипели от напряжения',
-    'Сцилла разверзла шесть ужасных голов',
-    'Калипсо плакала на берегу, глядя на уходящий парус',
-    'Циклоп взревел, и скалы посыпались с горных вершин',
     'Аргус узнал хозяина и умер, вильнув хвостом',
-    'Старик Лаэрт копался в саду, не ведая, что сын вернулся',
     'Итака — маленький остров, но слаще его нет на свете',
-    'Кровь женихов залила каменный пол',
-    'Приам пришёл к Ахиллу и целовал ему руки, убившие его сына',
-    'Андромаха стояла на стене и держала младенца',
+    'Приам пришёл к Ахиллу и целовал ему руки',
     'Патрокл надел доспехи Ахилла и вышел на бой',
     'Гефест ковал щит, и на нём уместился весь мир'
 ];
@@ -98,10 +50,7 @@ if (footerEl) {
     }, 10000);
 }
 
-
-// --- РАНДОМНАЯ ГАЛЕРЕЯ ---
 var galleryContainer = document.getElementById('randomGallery');
-
 if (galleryContainer) {
     var allImages = [
         'images/jewerly/photo1.png',
@@ -147,21 +96,15 @@ if (galleryContainer) {
         'images/sweaters/series5/photo6.png',
         'images/sweaters/series5/photo7.png'
     ];
-
     function shuffle(arr) {
         for (var i = arr.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1));
-            var temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
         }
         return arr;
     }
-
     var shuffled = shuffle(allImages.slice());
-    var count = Math.min(9, shuffled.length);
-
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < Math.min(9, shuffled.length); i++) {
         var item = document.createElement('div');
         item.className = 'gallery-item';
         var img = document.createElement('img');
@@ -173,26 +116,20 @@ if (galleryContainer) {
     }
 }
 
-
-// --- КАСТОМНЫЙ КУРСОР ---
 var dot = document.getElementById('cursorDot');
 var ring = document.getElementById('cursorRing');
 var mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
-
 if (dot && ring && window.innerWidth > 768) {
-    var cursorStyle = document.createElement('style');
-    cursorStyle.textContent = '*, *::before, *::after { cursor: none !important; }';
-    document.head.appendChild(cursorStyle);
-
+    var cs = document.createElement('style');
+    cs.textContent = '*, *::before, *::after { cursor: none !important; }';
+    document.head.appendChild(cs);
     dot.style.display = 'block';
     ring.style.display = 'block';
-
     document.addEventListener('mousemove', function(e) {
         mouseX = e.clientX;
         mouseY = e.clientY;
         dot.style.transform = 'translate(' + (mouseX - 4) + 'px, ' + (mouseY - 4) + 'px)';
     });
-
     function animateRing() {
         ringX += (mouseX - ringX) * 0.15;
         ringY += (mouseY - ringY) * 0.15;
@@ -200,19 +137,15 @@ if (dot && ring && window.innerWidth > 768) {
         requestAnimationFrame(animateRing);
     }
     animateRing();
-
-    var cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
-
-    function changeCursorColor() {
-        var color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
-        dot.style.backgroundColor = color;
-        ring.style.borderColor = color;
+    var cc = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
+    function chgColor() {
+        var c = cc[Math.floor(Math.random() * cc.length)];
+        dot.style.backgroundColor = c;
+        ring.style.borderColor = c;
     }
-
-    changeCursorColor();
-    setInterval(changeCursorColor, 3000);
-
-    document.querySelectorAll('a, .btn, .service-line, .team-member, .gallery-item, .portfolio-item, .portfolio-video-item, .seeking-card, .skill-block, .extra-card, .tag').forEach(function(el) {
+    chgColor();
+    setInterval(chgColor, 3000);
+    document.querySelectorAll('a, .btn, .service-line, .team-member, .gallery-item, .portfolio-item, .portfolio-video-item').forEach(function(el) {
         el.addEventListener('mouseenter', function() {
             ring.style.width = '60px';
             ring.style.height = '60px';
@@ -230,8 +163,6 @@ if (dot && ring && window.innerWidth > 768) {
     });
 }
 
-
-// --- НАВИГАЦИЯ ---
 var nav = document.getElementById('nav');
 if (nav) {
     window.addEventListener('scroll', function() {
@@ -239,8 +170,6 @@ if (nav) {
     });
 }
 
-
-// --- FADE-IN ---
 var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
         if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -250,31 +179,25 @@ document.querySelectorAll('.reveal').forEach(function(el) {
     observer.observe(el);
 });
 
-
-// --- ЛЕТАЮЩИЕ СИМВОЛЫ ---
 var symbols = ['✦', '◈', '▲', '●', '◆', '★', '✕', '◎', '▪', '♦', '🐀'];
 var flyColors = ['#0055FF', '#FFB6D9', '#000000'];
 var flyContainer = document.getElementById('flyingSymbols');
-
 if (flyContainer) {
     function spawnSymbol() {
-        var sym = document.createElement('span');
-        sym.className = 'fly-sym';
-        sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        sym.style.left = Math.random() * 100 + 'vw';
-        sym.style.animationDuration = (5 + Math.random() * 10) + 's';
-        sym.style.fontSize = (10 + Math.random() * 20) + 'px';
-        sym.style.color = flyColors[Math.floor(Math.random() * flyColors.length)];
-        flyContainer.appendChild(sym);
-        setTimeout(function() { sym.remove(); }, 15000);
+        var s = document.createElement('span');
+        s.className = 'fly-sym';
+        s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.animationDuration = (5 + Math.random() * 10) + 's';
+        s.style.fontSize = (10 + Math.random() * 20) + 'px';
+        s.style.color = flyColors[Math.floor(Math.random() * flyColors.length)];
+        flyContainer.appendChild(s);
+        setTimeout(function() { s.remove(); }, 15000);
     }
     setInterval(spawnSymbol, 1500);
 }
 
-
-// --- ASCII КРЫСЫ ---
 var ratContainer = document.getElementById('ratContainer');
-
 var rats = [
     '  (\\_  /)\n  ( •_•)\n  / > 🧀',
     '  ~(____)~\n   (o  o)\n   (>  <)',
@@ -287,32 +210,25 @@ var rats = [
     '     🐀\n  ╱|、\n (˚ˎ 。7\n  |、˜〵\n  じしˍ,)ノ',
     '  ~~(°▽°)~~\n   /|  |\\\n   _|  |_'
 ];
-
 if (ratContainer) {
     function spawnRat() {
-        var rat = document.createElement('div');
-        rat.className = 'random-rat';
-        rat.innerHTML = '<pre>' + rats[Math.floor(Math.random() * rats.length)] + '</pre>';
-
-        var maxX = window.innerWidth - 150;
-        var maxY = Math.max(document.documentElement.scrollHeight, 2000) - 150;
-
-        rat.style.left = Math.floor(Math.random() * maxX) + 'px';
-        rat.style.top = Math.floor(Math.random() * maxY) + 'px';
-        rat.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
-
-        var ratColors = ['#0055FF', '#FFB6D9', '#cccccc', '#000000'];
-        rat.style.color = ratColors[Math.floor(Math.random() * ratColors.length)];
-
-        ratContainer.appendChild(rat);
-
-        var lifetime = 6000 + Math.random() * 8000;
+        var r = document.createElement('div');
+        r.className = 'random-rat';
+        r.innerHTML = '<pre>' + rats[Math.floor(Math.random() * rats.length)] + '</pre>';
+        var mx = window.innerWidth - 150;
+        var my = Math.max(document.documentElement.scrollHeight, 2000) - 150;
+        r.style.left = Math.floor(Math.random() * mx) + 'px';
+        r.style.top = Math.floor(Math.random() * my) + 'px';
+        r.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
+        var rc = ['#0055FF', '#FFB6D9', '#cccccc', '#000000'];
+        r.style.color = rc[Math.floor(Math.random() * rc.length)];
+        ratContainer.appendChild(r);
+        var lt = 6000 + Math.random() * 8000;
         setTimeout(function() {
-            rat.style.opacity = '0';
-            setTimeout(function() { rat.remove(); }, 1000);
-        }, lifetime);
+            r.style.opacity = '0';
+            setTimeout(function() { r.remove(); }, 1000);
+        }, lt);
     }
-
     function scheduleRat() {
         spawnRat();
         setTimeout(scheduleRat, 2000 + Math.random() * 4000);
@@ -320,161 +236,71 @@ if (ratContainer) {
     scheduleRat();
 }
 
-
-// --- СЛОМАННЫЙ МОНИТОР ---
 var scanContainer = document.getElementById('scanlines');
-
 if (scanContainer) {
-    function spawnVertLine() {
-        var line = document.createElement('div');
-        line.className = 'v-line';
-        var w;
-        if (Math.random() > 0.7) {
-            w = 15 + Math.random() * 60;
-        } else {
-            w = 1 + Math.random() * 4;
-        }
-        line.style.width = w + 'px';
-        line.style.left = Math.random() * 100 + 'vw';
+    function spawnVLine() {
+        var l = document.createElement('div');
+        l.className = 'v-line';
+        var w = Math.random() > 0.7 ? 15 + Math.random() * 60 : 1 + Math.random() * 4;
+        l.style.width = w + 'px';
+        l.style.left = Math.random() * 100 + 'vw';
         if (Math.random() > 0.4) {
-            line.style.height = '100vh';
-            line.style.top = '0';
+            l.style.height = '100vh';
+            l.style.top = '0';
         } else {
             var h = 20 + Math.random() * 60;
-            line.style.height = h + 'vh';
-            line.style.top = Math.random() * (100 - h) + 'vh';
+            l.style.height = h + 'vh';
+            l.style.top = Math.random() * (100 - h) + 'vh';
         }
         var op = 0.04 + Math.random() * 0.15;
         if (Math.random() > 0.8) {
-            line.classList.add('v-line-bright');
+            l.classList.add('v-line-bright');
             op = 0.15 + Math.random() * 0.2;
         }
-        scanContainer.appendChild(line);
+        scanContainer.appendChild(l);
         requestAnimationFrame(function() {
-            line.style.transition = 'opacity 0.3s ease';
-            line.style.opacity = String(op);
+            l.style.transition = 'opacity 0.3s ease';
+            l.style.opacity = String(op);
         });
-        var holdTime = 500 + Math.random() * 3500;
+        var ht = 500 + Math.random() * 3500;
         setTimeout(function() {
-            line.style.transition = 'opacity 0.8s ease';
-            line.style.opacity = '0';
-            setTimeout(function() { line.remove(); }, 900);
-        }, holdTime);
+            l.style.transition = 'opacity 0.8s ease';
+            l.style.opacity = '0';
+            setTimeout(function() { l.remove(); }, 900);
+        }, ht);
     }
-
     function spawnFlicker() {
-        var line = document.createElement('div');
-        line.className = 'v-line v-line-flicker';
-        line.style.width = (1 + Math.random() * 3) + 'px';
-        line.style.left = Math.random() * 100 + 'vw';
-        line.style.height = '100vh';
-        line.style.top = '0';
-        scanContainer.appendChild(line);
-        setTimeout(function() { line.remove(); }, 300 + Math.random() * 500);
+        var l = document.createElement('div');
+        l.className = 'v-line v-line-flicker';
+        l.style.width = (1 + Math.random() * 3) + 'px';
+        l.style.left = Math.random() * 100 + 'vw';
+        l.style.height = '100vh';
+        l.style.top = '0';
+        scanContainer.appendChild(l);
+        setTimeout(function() { l.remove(); }, 300 + Math.random() * 500);
     }
-
-    function verticalBurst() {
-        var count = 2 + Math.floor(Math.random() * 5);
-        for (var i = 0; i < count; i++) {
-            (function(delay) {
-                setTimeout(spawnVerticalLine, delay);
-            })(i * 80);
+    function vBurst() {
+        var c = 2 + Math.floor(Math.random() * 5);
+        for (var i = 0; i < c; i++) {
+            (function(d) { setTimeout(spawnVLine, d); })(i * 80);
         }
-        setTimeout(verticalBurst, 12000 + Math.random() * 20000);
+        setTimeout(vBurst, 12000 + Math.random() * 20000);
     }
-
-    function greenFlash() {
-        var flash = document.createElement('div');
-        flash.className = 'green-flash';
-        document.body.appendChild(flash);
-        setTimeout(function() { flash.remove(); }, 200);
+    function gFlash() {
+        var f = document.createElement('div');
+        f.className = 'green-flash';
+        document.body.appendChild(f);
+        setTimeout(function() { f.remove(); }, 200);
     }
-
-    function scheduleVertical() {
-        spawnVerticalLine();
-        setTimeout(scheduleVertical, 3000 + Math.random() * 5000);
-    }
-
-    function scheduleFlicker() {
-        spawnFlicker();
-        setTimeout(scheduleFlicker, 2000 + Math.random() * 6000);
-    }
-
-    function scheduleFlash() {
-        greenFlash();
-        setTimeout(scheduleFlash, 15000 + Math.random() * 25000);
-    }
-
-    scheduleVertical();
-    scheduleFlicker();
-    scheduleFlash();
-    setTimeout(verticalBurst, 8000 + Math.random() * 10000);
+    function schV() { spawnVLine(); setTimeout(schV, 3000 + Math.random() * 5000); }
+    function schF() { spawnFlicker(); setTimeout(schF, 2000 + Math.random() * 6000); }
+    function schG() { gFlash(); setTimeout(schG, 15000 + Math.random() * 25000); }
+    schV();
+    schF();
+    schG();
+    setTimeout(vBurst, 8000 + Math.random() * 10000);
 }
 
-
-// --- ЛАЙТБОКС ---
-(function() {
-    var portfolioItems = document.querySelectorAll('.portfolio-item img');
-    if (portfolioItems.length === 0) return;
-
-    var lightbox = document.createElement('div');
-    lightbox.className = 'lightbox';
-    lightbox.innerHTML = '<button class="lightbox-close">&times;</button><button class="lightbox-nav lightbox-prev">&#8249;</button><img src="" alt=""><button class="lightbox-nav lightbox-next">&#8250;</button>';
-    document.body.appendChild(lightbox);
-
-    var lbImg = lightbox.querySelector('img');
-    var lbClose = lightbox.querySelector('.lightbox-close');
-    var lbPrev = lightbox.querySelector('.lightbox-prev');
-    var lbNext = lightbox.querySelector('.lightbox-next');
-    var currentImages = [];
-    var currentIndex = 0;
-
-    portfolioItems.forEach(function(img) {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', function() {
-            var project = img.closest('.portfolio-project');
-            currentImages = [];
-            project.querySelectorAll('.portfolio-item img').forEach(function(i) {
-                currentImages.push(i.src);
-            });
-            currentIndex = currentImages.indexOf(img.src);
-            lbImg.src = currentImages[currentIndex];
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    });
-
-    function closeLB() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    function prevLB() {
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        lbImg.src = currentImages[currentIndex];
-    }
-
-    function nextLB() {
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        lbImg.src = currentImages[currentIndex];
-    }
-
-    lbClose.addEventListener('click', closeLB);
-    lbPrev.addEventListener('click', prevLB);
-    lbNext.addEventListener('click', nextLB);
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) closeLB();
-    });
-    document.addEventListener('keydown', function(e) {
-        if (!lightbox.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLB();
-        if (e.key === 'ArrowLeft') prevLB();
-        if (e.key === 'ArrowRight') nextLB();
-    });
-})();
-
-
-// --- ВИДЕО ---
 document.querySelectorAll('.portfolio-video-item').forEach(function(item) {
     var video = item.querySelector('video');
     if (!video) return;

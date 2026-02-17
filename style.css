@@ -259,8 +259,7 @@ a:hover {
    VHS-ГЛИТЧ НА КАРТИНКАХ
    ============================================ */
 
-.gallery-item:hover img,
-.portfolio-item:hover img {
+.gallery-item:hover img {
     animation: vhs-img 0.3s steps(2) infinite;
 }
 
@@ -422,7 +421,7 @@ section h2 {
 }
 
 /* ============================================
-   ГАЛЕРЕЯ НА ГЛАВНОЙ
+   ГАЛЕРЕЯ НА ГЛАВНОЙ — МАЛЕНЬКИЕ КВАДРАТЫ
    ============================================ */
 
 .gallery-section {
@@ -431,15 +430,15 @@ section h2 {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 120px);
     gap: 8px;
-    max-width: 900px;
-    margin: 0 auto;
+    justify-content: center;
 }
 
 .gallery-item {
     overflow: hidden;
     border-radius: 6px;
+    width: 120px;
     height: 120px;
 }
 
@@ -527,10 +526,18 @@ section h2 {
 }
 
 .portfolio-item {
-    overflow: hidden;
+    overflow: visible;
     border-radius: 8px;
     height: 200px;
     background-color: #f0f5ff;
+    position: relative;
+    z-index: 1;
+    transition: z-index 0s;
+}
+
+.portfolio-item:hover {
+    z-index: 99;
+    transition: z-index 0s;
 }
 
 .portfolio-item img {
@@ -538,12 +545,17 @@ section h2 {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s ease;
+    border-radius: 8px;
     cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transform-origin: center center;
 }
 
 .portfolio-item:hover img {
-    transform: scale(1.05);
+    transform: scale(2.5);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    object-fit: contain;
+    background-color: #ffffff;
 }
 
 /* ============================================
@@ -591,86 +603,6 @@ section h2 {
 
 .portfolio-video-item.playing::after {
     opacity: 0;
-}
-
-/* ============================================
-   ЛАЙТБОКС
-   ============================================ */
-
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.88);
-    z-index: 10002;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.lightbox.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.lightbox img {
-    max-width: 600px;
-    max-height: 80vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 20px 80px rgba(0, 85, 255, 0.3);
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 36px;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-    background: none;
-    border: none;
-    z-index: 10003;
-}
-
-.lightbox-close:hover {
-    color: #FFB6D9;
-}
-
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 48px;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-    background: none;
-    border: none;
-    padding: 20px;
-    z-index: 10003;
-}
-
-.lightbox-nav:hover {
-    color: #FFB6D9;
-}
-
-.lightbox-prev {
-    left: 20px;
-}
-
-.lightbox-next {
-    right: 20px;
 }
 
 /* ============================================
@@ -968,12 +900,13 @@ section h2 {
     }
 
     .gallery-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 90px);
         gap: 6px;
     }
 
     .gallery-item {
-        height: 80px;
+        width: 90px;
+        height: 90px;
     }
 
     .service-line {
@@ -1002,6 +935,10 @@ section h2 {
         height: 140px;
     }
 
+    .portfolio-item:hover img {
+        transform: scale(2);
+    }
+
     .project-title {
         font-size: 6vw;
         margin-bottom: 25px;
@@ -1019,22 +956,6 @@ section h2 {
 
     .portfolio-video-item::after {
         font-size: 36px;
-    }
-
-    .lightbox img {
-        max-width: 85vw;
-        max-height: 70vh;
-    }
-
-    .lightbox-close {
-        top: 15px;
-        right: 20px;
-        font-size: 28px;
-    }
-
-    .lightbox-nav {
-        font-size: 32px;
-        padding: 10px;
     }
 
     .team-grid,

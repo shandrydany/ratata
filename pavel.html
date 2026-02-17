@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Паша Прищепов — RATATÁ</title>
+    <title>Мы — RATATÁ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pavel.css">
 </head>
-<body class="pavel-page">
+<body>
 
     <div class="vhs-noise"></div>
     <div id="scanlines"></div>
@@ -18,61 +17,164 @@
     <div id="ratContainer"></div>
     <div class="flying-symbols" id="flyingSymbols"></div>
 
-    <div class="color-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-        <div class="blob blob-4"></div>
-    </div>
-
     <nav class="nav" id="nav">
         <div class="nav-links">
             <a href="index.html">Главная</a>
-            <a href="about.html">Мы</a>
+            <a href="about.html" class="active">Мы</a>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="pavel-hero">
-        <div class="pavel-hero-photo">
-            <img src="images/pavel.jpg" alt="Паша Прищепов" class="pavel-main-photo">
-            <div class="photo-glitch-overlay"></div>
-            <div class="photo-glitch-overlay-2"></div>
-        </div>
-        <div class="pavel-hero-text">
-            <h1 class="mega-glitch" data-text="Паша Прищепов">Паша Прищепов</h1>
-            <p class="pavel-role">Родился 9 мая 1988 года в Ленинграде</p>
-            <p class="pavel-tagline">Почти 19 лет успешно работал юристом. И больше не хочу.</p>
-            <p class="pavel-subtitle">Хочу другое.</p>
+    <section class="page-header">
+        <h1 class="glitch" data-text="Мы">Мы</h1>
+        <p>Кто мы и что нами движет</p>
+    </section>
+
+    <section class="about-section">
+        <div class="about-text reveal">
+            <h2>RATATÁ — это мы</h2>
         </div>
     </section>
 
-    <!-- БЕГУЩАЯ СТРОКА -->
-    <div class="chaos-divider">
-        <span>дизайн</span><span>✦</span>
-        <span>мода</span><span>◈</span>
-        <span>искусство</span><span>▲</span>
-        <span>креатив</span><span>🐀</span>
-        <span>дизайн</span><span>✦</span>
-        <span>мода</span><span>◈</span>
-        <span>искусство</span><span>▲</span>
-        <span>креатив</span><span>🐀</span>
-    </div>
+    <section class="services-section">
+        <h2 class="reveal glitch" data-text="Что делаем">Что делаем</h2>
+        <div class="services-list">
+            <div class="service-line reveal">
+                <span class="service-number">01</span>
+                <span class="service-name">Красоту с ИИ</span>
+            </div>
+            <div class="service-line reveal">
+                <span class="service-number">02</span>
+                <span class="service-name">Красоту без ИИ</span>
+            </div>
+            <div class="service-line reveal">
+                <span class="service-number">03</span>
+                <span class="service-name">Слова</span>
+            </div>
+            <div class="service-line reveal">
+                <span class="service-number">04</span>
+                <span class="service-name">Дизайн</span>
+            </div>
+        </div>
+    </section>
 
+    <section class="portfolio-section">
+        <h2 class="reveal glitch" data-text="Портфолио">Портфолио</h2>
 
-    <!-- КОНТАКТ -->
-    <section class="pavel-contact">
-        <h2 class="mega-glitch reveal" data-text="Написать мне">Написать мне</h2>
-        <div class="pavel-contact-grid">
-            <div class="pavel-contact-item reveal">
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Jewerly</h3>
+            <div class="portfolio-grid portfolio-grid-large">
+                <div class="portfolio-item"><img src="images/jewerly/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo5.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo6.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo7.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo8.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo9.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo10.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/jewerly/photo11.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Sweaters — Series 1</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="images/sweaters/series1/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series1/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series1/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series1/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series1/photo5.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Sweaters — Series 2</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo5.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series2/photo6.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Sweaters — Series 3</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo5.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series3/photo6.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Sweaters — Series 4</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo5.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo6.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series4/photo7.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Sweaters — Series 5</h3>
+            <div class="portfolio-grid">
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo1.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo2.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo3.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo4.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo5.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo6.png" alt="" loading="lazy"></div>
+                <div class="portfolio-item"><img src="images/sweaters/series5/photo7.png" alt="" loading="lazy"></div>
+            </div>
+        </div>
+
+        <div class="portfolio-project reveal">
+            <h3 class="project-title">Neuro Videos</h3>
+            <div class="portfolio-video-grid">
+                <div class="portfolio-video-item">
+                    <video src="images/neuro-videos/video1.MP4" muted loop playsinline preload="metadata"></video>
+                </div>
+                <div class="portfolio-video-item">
+                    <video src="images/neuro-videos/video2.MP4" muted loop playsinline preload="metadata"></video>
+                </div>
+                <div class="portfolio-video-item">
+                    <video src="images/neuro-videos/video3" muted loop playsinline preload="metadata"></video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <h2 class="reveal">Мы</h2>
+        <div class="team-grid">
+            <div class="team-member reveal">
+                <img src="images/pavel.jpg" alt="Павел Прищепов" class="team-photo">
+                <h3><a href="pavel.html">Павел Прищепов</a></h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts-section-page">
+        <div class="contacts-grid">
+            <div class="contact-item reveal">
                 <h3>Почта</h3>
-                <p><a href="mailto:pprischepov@gmail.com">pprischepov@gmail.com</a></p>
+                <p><a href="mailto:pavel@ratataaa.art">pavel@ratataaa.art</a></p>
             </div>
-            <div class="pavel-contact-item reveal">
+            <div class="contact-item reveal">
                 <h3>Телеграм</h3>
-                <p><a href="https://t.me/Shandrydany">@Shandrydany</a></p>
+                <p><a href="https://t.me/shandrydany">@shandrydany</a></p>
             </div>
-            <div class="pavel-contact-item reveal">
+            <div class="contact-item reveal">
                 <h3>Город</h3>
                 <p>Санкт-Петербург</p>
             </div>
@@ -81,8 +183,8 @@
 
     <footer class="footer">
         <div class="footer-cta reveal">
-            <h2 class="mega-glitch" data-text="Давайте сделаем красоту вместе">Давайте сделаем красоту вместе</h2>
-            <a href="mailto:pprischepov@gmail.com" class="btn btn-dark">
+            <h2 class="glitch" data-text="Давайте сделаем красоту вместе">Давайте сделаем красоту вместе</h2>
+            <a href="mailto:pavel@ratataaa.art" class="btn btn-dark">
                 <span class="btn-text">⟶ ✦ ◈ ▲ 🐀</span>
             </a>
         </div>

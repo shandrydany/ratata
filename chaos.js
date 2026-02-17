@@ -1,930 +1,499 @@
-/* =============================================
+/* ============================================
    RATATÁ — ДИЧЬ БЕЗ КОМПРОМИССОВ
-   ============================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #ffffff;
-    color: #0055FF;
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-}
-
-a {
-    color: #0055FF;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #FFB6D9;
-}
-
-/* ============================================
-   VHS-ЗЕРНО
    ============================================ */
 
-.vhs-noise {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    pointer-events: none;
-    z-index: 9998;
-    opacity: 0.06;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
-    animation: noise 0.2s steps(10) infinite;
-}
-
-@keyframes noise {
-    0%, 100% { transform: translate(0, 0); }
-    10% { transform: translate(-5%, -5%); }
-    20% { transform: translate(-10%, 5%); }
-    30% { transform: translate(5%, -10%); }
-    40% { transform: translate(-5%, 15%); }
-    50% { transform: translate(-10%, 5%); }
-    60% { transform: translate(15%, 0); }
-    70% { transform: translate(0, 10%); }
-    80% { transform: translate(-15%, 0); }
-    90% { transform: translate(10%, 5%); }
-}
-
-/* ============================================
-   СЛОМАННЫЙ МОНИТОР
-   ============================================ */
-
-#scanlines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9997;
-    overflow: hidden;
-}
-
-.v-line {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: rgb(0, 255, 70);
-    opacity: 0;
-    pointer-events: none;
-}
-
-.v-line-bright {
-    box-shadow: 0 0 15px 5px rgba(0, 255, 70, 0.3);
-}
-
-.v-line-flicker {
-    animation: vLineFlicker 0.15s steps(2) infinite !important;
-}
-
-@keyframes vLineFlicker {
-    0% { opacity: 0.2; }
-    25% { opacity: 0; }
-    50% { opacity: 0.15; }
-    75% { opacity: 0; }
-    100% { opacity: 0.2; }
-}
-
-.green-flash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 255, 70, 0.05);
-    pointer-events: none;
-    z-index: 9996;
-    animation: flashIn 0.15s ease forwards;
-}
-
-@keyframes flashIn {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-.crt-lines {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9995;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 3px,
-        rgba(0, 255, 70, 0.015) 3px,
-        rgba(0, 255, 70, 0.015) 4px
-    );
-}
-
-/* ============================================
-   ASCII КРЫСЫ
-   ============================================ */
-
-#ratContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 50;
-}
-
-.random-rat {
-    position: absolute;
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    line-height: 1.2;
-    color: #FFB6D9;
-    opacity: 0;
-    animation: ratAppear 1s ease forwards;
-    transition: opacity 1s ease;
-    pointer-events: none;
-    white-space: pre;
-}
-
-.random-rat pre {
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-}
-
-@keyframes ratAppear {
-    0% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 0.6; }
-    100% { opacity: 0.4; }
-}
-
-/* ============================================
-   ЛЕТАЮЩИЕ СИМВОЛЫ
-   ============================================ */
-
-.flying-symbols {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 51;
-    overflow: hidden;
-}
-
-.fly-sym {
-    position: absolute;
-    top: -30px;
-    animation: floatDown linear forwards;
-    opacity: 0.3;
-    pointer-events: none;
-}
-
-@keyframes floatDown {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.3; }
-    90% { opacity: 0.3; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-}
-
-/* ============================================
-   ГЛИТЧ
-   ============================================ */
-
-.glitch {
-    position: relative;
-    animation: glitch-shake 4s infinite;
-}
-
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-}
-
-.glitch::before {
-    animation: glitch-1 4s infinite;
-    color: #FFB6D9;
-    z-index: -1;
-}
-
-.glitch::after {
-    animation: glitch-2 4s infinite;
-    color: #00ddff;
-    z-index: -2;
-}
-
-@keyframes glitch-shake {
-    0%, 95%, 100% { transform: translate(0); }
-    96% { transform: translate(-3px, 2px); }
-    97% { transform: translate(3px, -2px); }
-    98% { transform: translate(-2px, -1px); }
-    99% { transform: translate(2px, 1px); }
-}
-
-@keyframes glitch-1 {
-    0%, 93%, 100% { transform: translate(0); opacity: 0; }
-    94% { transform: translate(-4px, -2px); opacity: 0.7; }
-    95% { transform: translate(4px, 2px); opacity: 0; }
-    96% { transform: translate(-2px, 3px); opacity: 0.7; }
-    97% { transform: translate(0); opacity: 0; }
-}
-
-@keyframes glitch-2 {
-    0%, 94%, 100% { transform: translate(0); opacity: 0; }
-    95% { transform: translate(3px, 3px); opacity: 0.5; }
-    96% { transform: translate(-3px, -3px); opacity: 0; }
-    97% { transform: translate(2px, -2px); opacity: 0.5; }
-    98% { transform: translate(0); opacity: 0; }
-}
-
-/* ============================================
-   VHS-ГЛИТЧ НА КАРТИНКАХ
-   ============================================ */
-
-.bento-item:hover .bento-img-placeholder,
-.gallery-item:hover img,
-.portfolio-item:hover img {
-    animation: vhs-img 0.3s steps(2) infinite;
-}
-
-@keyframes vhs-img {
-    0% { transform: translate(0, 0); filter: hue-rotate(0deg); }
-    25% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
-    50% { transform: translate(2px, -1px); filter: hue-rotate(180deg); }
-    75% { transform: translate(-1px, -2px); filter: hue-rotate(270deg); }
-    100% { transform: translate(0, 0); filter: hue-rotate(360deg); }
-}
-
-/* ============================================
-   НАВИГАЦИЯ
-   ============================================ */
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background-color: transparent;
-    transition: background-color 0.4s, box-shadow 0.4s, padding 0.4s;
-}
-
-.nav.scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 2px 30px rgba(0, 85, 255, 0.08);
-    padding: 15px 60px;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo-img {
-    height: 80px;
-    width: auto;
-    transition: height 0.4s;
-}
-
-.nav.scrolled .logo-img {
-    height: 50px;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.nav-links a {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-}
-
-.nav-links a.active {
-    border-bottom: 2px solid #0055FF;
-    padding-bottom: 2px;
-}
-
-/* ============================================
-   HERO
-   ============================================ */
-
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 40px;
-    overflow: hidden;
-}
-
-.hero h1 {
-    font-size: clamp(64px, 18vw, 300px);
-    font-weight: 700;
-    letter-spacing: 2vw;
-    text-transform: uppercase;
-    line-height: 0.9;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.hero-sub {
-    font-size: clamp(16px, 2vw, 32px);
-    letter-spacing: 1vw;
-    text-transform: uppercase;
-    color: #6699ff;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out 0.3s;
-    animation-fill-mode: both;
-}
-
-.hero-desc {
-    max-width: 500px;
-    color: #6699ff;
-    font-size: 16px;
-    font-style: italic;
-    animation: fadeInUp 1s ease-out 0.6s;
-    animation-fill-mode: both;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ============================================
-   ЗАГОЛОВОК СТРАНИЦЫ
-   ============================================ */
-
-.page-header {
-    padding: 180px 60px 100px;
-    text-align: center;
-}
-
-.page-header h1 {
-    font-size: clamp(48px, 10vw, 180px);
-    font-weight: 700;
-    letter-spacing: 1vw;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.page-header p {
-    font-size: 18px;
-    color: #6699ff;
-    animation: fadeInUp 1s ease-out 0.3s;
-    animation-fill-mode: both;
-}
-
-/* ============================================
-   СЕКЦИИ
-   ============================================ */
-
-section {
-    padding: 120px 60px;
-}
-
-section h2 {
-    font-size: clamp(36px, 6vw, 100px);
-    font-weight: 700;
-    letter-spacing: 0.3vw;
-    text-transform: uppercase;
-    margin-bottom: 80px;
-}
-
-/* ============================================
-   FADE-IN
-   ============================================ */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ============================================
-   ГАЛЕРЕЯ НА ГЛАВНОЙ
-   ============================================ */
-
-.gallery-section {
-    padding: 40px 60px 120px;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.gallery-grid .gallery-item {
-    overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 1;
-}
-
-.gallery-grid .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.gallery-grid .gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-/* ============================================
-   УСЛУГИ — СПИСОК
-   ============================================ */
-
-.services-list {
-    max-width: 900px;
-}
-
-.service-line {
-    display: flex;
-    align-items: baseline;
-    gap: 40px;
-    padding: 40px 0;
-    border-bottom: 1px solid #cce0ff;
-    transition: all 0.3s ease;
-}
-
-.service-line:first-child {
-    border-top: 1px solid #cce0ff;
-}
-
-.service-line:hover {
-    padding-left: 20px;
-    border-bottom-color: #FFB6D9;
-}
-
-.service-number {
-    font-size: 14px;
-    color: #99bbff;
-    font-weight: 500;
-    letter-spacing: 2px;
-    min-width: 40px;
-}
-
-.service-name {
-    font-size: clamp(24px, 4vw, 48px);
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-/* ============================================
-   ПОРТФОЛИО
-   ============================================ */
-
-.portfolio-section {
-    padding: 120px 60px;
-}
-
-.portfolio-project {
-    margin-bottom: 120px;
-}
-
-.portfolio-project:last-child {
-    margin-bottom: 0;
-}
-
-.project-title {
-    font-size: clamp(24px, 3vw, 42px);
-    font-weight: 500;
-    letter-spacing: 1px;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #cce0ff;
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-.portfolio-grid-large {
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.portfolio-item {
-    overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 1;
-    background-color: #f0f5ff;
-}
-
-.portfolio-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.portfolio-item:hover img {
-    transform: scale(1.05);
-}
-
-.portfolio-grid .portfolio-item:first-child {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-/* ============================================
-   ПОРТФОЛИО — ВИДЕО
-   ============================================ */
-
-.portfolio-video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-.portfolio-video-item {
-    overflow: hidden;
-    border-radius: 8px;
-    aspect-ratio: 9/16;
-    background-color: #000;
-    position: relative;
-    cursor: pointer;
-}
-
-.portfolio-video-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.portfolio-video-item:hover video {
-    transform: scale(1.03);
-}
-
-.portfolio-video-item::after {
-    content: '▶';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    color: rgba(255, 255, 255, 0.8);
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.portfolio-video-item.playing::after {
-    opacity: 0;
-}
-
-/* ============================================
-   ЛАЙТБОКС
-   ============================================ */
-
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 10002;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.lightbox.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 20px 80px rgba(0, 85, 255, 0.3);
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 36px;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-    background: none;
-    border: none;
-    z-index: 10003;
-}
-
-.lightbox-close:hover {
-    color: #FFB6D9;
-}
-
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 48px;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s;
-    font-family: 'Space Grotesk', sans-serif;
-    background: none;
-    border: none;
-    padding: 20px;
-    z-index: 10003;
-}
-
-.lightbox-nav:hover {
-    color: #FFB6D9;
-}
-
-.lightbox-prev {
-    left: 20px;
-}
-
-.lightbox-next {
-    right: 20px;
-}
-
-/* ============================================
-   О СТУДИИ
-   ============================================ */
-
-.about-section {
-    padding-top: 0;
-}
-
-.about-text {
-    max-width: 700px;
-}
-
-.about-text h2 {
-    font-size: clamp(28px, 4vw, 48px);
-    margin-bottom: 30px;
-}
-
-.about-text p {
-    font-size: 18px;
-    line-height: 1.8;
-    color: #4488ff;
-    margin-bottom: 20px;
-}
-
-/* ============================================
-   КОМАНДА
-   ============================================ */
-
-.team-section {
-    padding: 120px 60px;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-}
-
-.team-member {
-    text-align: center;
-}
-
-.team-photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #FFB6D9;
-    margin: 0 auto 20px auto;
-    display: block;
-    transition: transform 0.4s, border-color 0.4s;
-}
-
-.team-photo:hover {
-    transform: scale(1.05);
-    border-color: #0055FF;
-}
-
-.team-member h3 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 5px;
-}
-
-.team-member p {
-    color: #6699ff;
-    font-size: 14px;
-}
-
-/* ============================================
-   КОНТАКТЫ
-   ============================================ */
-
-.contacts-section-page {
-    padding: 100px 60px;
-}
-
-.contacts-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-}
-
-.contact-item h3 {
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #6699ff;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-.contact-item p {
-    font-size: 24px;
-    font-weight: 500;
-}
-
-.contact-item a {
-    color: #0055FF;
-    transition: color 0.3s;
-}
-
-.contact-item a:hover {
-    color: #FFB6D9;
-}
-
-/* ============================================
-   КНОПКА
-   ============================================ */
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    padding: 18px 45px;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 3px;
-    font-family: 'Space Grotesk', sans-serif;
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    transition: all 0.4s ease;
-    border: 2px solid #0055FF;
-    color: #0055FF;
-    text-decoration: none;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: left 0.4s ease;
-    z-index: -1;
-}
-
-.btn:hover::before {
-    left: 0;
-}
-
-.btn-dark {
-    border-color: #000000;
-    color: #000000;
-}
-
-.btn-dark::before {
-    background-color: #000000;
-}
-
-.btn-dark:hover {
-    color: #FFB6D9;
-}
-
-/* ============================================
-   ФУТЕР
-   ============================================ */
-
-.footer {
-    padding: 120px 60px 40px;
-    background-color: #FFB6D9;
-    color: #000000;
-}
-
-.footer-cta {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.footer-cta h2 {
-    font-size: clamp(32px, 5vw, 72px);
-    margin-bottom: 40px;
-    color: #000000;
-}
-
-.footer-cta .glitch::before,
-.footer-cta .mega-glitch::before {
-    color: #0055FF;
-}
-
-.footer-cta .glitch::after,
-.footer-cta .mega-glitch::after {
-    color: #ffffff;
-}
-
-.footer-bottom {
-    text-align: center;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 14px;
-    font-style: italic;
-    min-height: 24px;
-}
-
-.footer-bottom p {
-    transition: opacity 0.4s ease;
-}
-
-/* ============================================
-   КАСТОМНЫЙ КУРСОР
-   ============================================ */
-
-.cursor-dot {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: #0055FF;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10001;
-    top: 0;
-    left: 0;
-    display: none;
-    will-change: transform;
-}
-
-.cursor-ring {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #0055FF;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    top: 0;
-    left: 0;
-    display: none;
-    will-change: transform;
-    transition: width 0.3s, height 0.3s, margin 0.3s, background-color 0.3s, border-color 0.3s;
-}
-
-/* ============================================
-   АДАПТИВ
-   ============================================ */
+console.log('%c\n     🐀\n  ╱|、\n (˚ˎ 。7\n  |、˜〵\n  RATATÁ\n', 'color: #0055FF; font-size: 14px; font-family: monospace;');
+
+var homerQuotes = [
+    'Гнев, богиня, воспой Ахиллеса, Пелеева сына',
+    'Муза, скажи мне о том многоопытном муже',
+    'Встала из мрака младая с перстами пурпурными Эос',
+    'Словно листья в лесу, таковы поколения людей',
+    'Из всех созданий, что дышат и ходят по нашей земле, человек самый жалкий',
+    'Лучше быть батраком у бедняка, чем царём над мёртвыми',
+    'Мёд по устам, а в груди его помыслы были иные',
+    'Между блаженных богов нерушимая вспыхнула распря',
+    'Море винноцветное, тёмное, бесприютное',
+    'Сердце из камня у тебя, а не из плоти',
+    'Так говорил он, и слёзы лились по щекам его тёмным',
+    'И полетела душа его в мрачное царство Аида',
+    'Кто же меня покалечил? Никто!',
+    'Винноцветное море шумело, ударяясь о скалы',
+    'Одиссей многоумный ответил ему, усмехаясь',
+    'Были мы в битвах, и дух наш ещё не угас',
+    'Тяжко стонала земля под ногами бегущих',
+    'Боги — они не для всех одинаково милостивы',
+    'Ночь наступила, и спать хорошо, если дело исполнено',
+    'Есть время для слов, и есть время для сна',
+    'Бросил он жребий свой в шлем Агамемнона, сына Атрея',
+    'Крепко смыкая ресницы, как будто железная дрёма',
+    'Нет ничего на земле погибельней и злее, чем женщина',
+    'Пусть земля мне будет пухом',
+    'Бойся данайцев, дары приносящих',
+    'Немногие сыновья подобны своим отцам',
+    'Язык у людей гибок; речей в нём край непочатый',
+    'Злую участь смертным назначили боги',
+    'Двух одинаковых дней не бывает у смертных',
+    'Дым отечества нам сладок и приятен',
+    'Прячь великую скорбь под безмолвным сердцем',
+    'Стыд погибающим — великая сила',
+    'Скрывай свои замыслы даже от ближних',
+    'Не властны мы над жизнью и над смертью',
+    'Каждый стоящий у власти мнит себя мудрым',
+    'Жадность была и будет началом всех бедствий',
+    'Глупец познаёт только то, что свершилось',
+    'И камень точит вода, что струится упорно',
+    'Блажен, кто дерзает, ибо удача сопутствует смелым',
+    'О скитаньях его поведай и нам хотя бы отчасти',
+    'Странник, приди и скажи лакедемонянам, что мы пали',
+    'Силой великой дышало лицо его, точно у зверя',
+    'Десять лет осаждали мы город великий Приама',
+    'Ни один трус не получит от судьбы щедрого дара',
+    'Медленно зрей: поспешивший увянет до срока',
+    'Легкомыслие — худшее, что есть в людях',
+    'И поднял он крик, подобный крику десяти тысяч воинов',
+    'Оружие подняв, шагнул он навстречу судьбе',
+    'Тот, кто бежит, — спину свою подставляет для стрел',
+    'Зевс-громовержец кивнул, и Олимп содрогнулся',
+    'Уже горели корабли, и пламя лизало канаты',
+    'Кони несли колесницу, и пыль поднималась до неба',
+    'Копьё вонзилось в щит, и медь зазвенела, как колокол',
+    'Он пал, и доспехи его зазвенели над ним',
+    'Афина-Паллада направила руку героя',
+    'Гектор стоял перед стенами Трои, и ветер трепал его плащ',
+    'Текли по равнине два войска, как два потока весенних',
+    'Ахиллес ответил: я знаю свой рок, и он мне не страшен',
+    'Навсикая белорукая бросила мяч подружкам',
+    'Пенелопа ткала и распускала свой бесконечный покров',
+    'Телемах взглянул на отца и не узнал его',
+    'Цирцея протянула кубок, и спутники Одиссея забыли дорогу домой',
+    'Сирены пели, и канаты скрипели от напряжения',
+    'Сцилла разверзла шесть ужасных голов',
+    'Калипсо плакала на берегу, глядя на уходящий парус',
+    'Циклоп взревел, и скалы посыпались с горных вершин',
+    'Аргус узнал хозяина и умер, вильнув хвостом',
+    'Старик Лаэрт копался в саду, не ведая, что сын вернулся',
+    'Итака — маленький остров, но слаще его нет на свете',
+    'Кровь женихов залила каменный пол',
+    'Приам пришёл к Ахиллу и целовал ему руки, убившие его сына',
+    'Андромаха стояла на стене и держала младенца',
+    'Патрокл надел доспехи Ахилла и вышел на бой',
+    'Гефест ковал щит, и на нём уместился весь мир'
+];
+
+var heroPhrase = document.querySelector('.random-phrase');
+if (heroPhrase) {
+    heroPhrase.textContent = homerQuotes[Math.floor(Math.random() * homerQuotes.length)];
+}
+
+var footerEl = document.querySelector('.random-footer');
+if (footerEl) {
+    footerEl.textContent = homerQuotes[Math.floor(Math.random() * homerQuotes.length)];
+    setInterval(function() {
+        footerEl.style.opacity = 0;
+        setTimeout(function() {
+            footerEl.textContent = homerQuotes[Math.floor(Math.random() * homerQuotes.length)];
+            footerEl.style.opacity = 1;
+        }, 400);
+    }, 10000);
+}
+
+
+// --- РАНДОМНАЯ ГАЛЕРЕЯ ---
+var galleryContainer = document.getElementById('randomGallery');
+
+if (galleryContainer) {
+    var allImages = [
+        'images/jewerly/photo1.png',
+        'images/jewerly/photo2.png',
+        'images/jewerly/photo3.png',
+        'images/jewerly/photo4.png',
+        'images/jewerly/photo5.png',
+        'images/jewerly/photo6.png',
+        'images/jewerly/photo7.png',
+        'images/jewerly/photo8.png',
+        'images/jewerly/photo9.png',
+        'images/jewerly/photo10.png',
+        'images/jewerly/photo11.png',
+        'images/sweaters/series1/photo1.png',
+        'images/sweaters/series1/photo2.png',
+        'images/sweaters/series1/photo3.png',
+        'images/sweaters/series1/photo4.png',
+        'images/sweaters/series1/photo5.png',
+        'images/sweaters/series2/photo1.png',
+        'images/sweaters/series2/photo2.png',
+        'images/sweaters/series2/photo3.png',
+        'images/sweaters/series2/photo4.png',
+        'images/sweaters/series2/photo5.png',
+        'images/sweaters/series2/photo6.png',
+        'images/sweaters/series3/photo1.png',
+        'images/sweaters/series3/photo2.png',
+        'images/sweaters/series3/photo3.png',
+        'images/sweaters/series3/photo4.png',
+        'images/sweaters/series3/photo5.png',
+        'images/sweaters/series3/photo6.png',
+        'images/sweaters/series4/photo1.png',
+        'images/sweaters/series4/photo2.png',
+        'images/sweaters/series4/photo3.png',
+        'images/sweaters/series4/photo4.png',
+        'images/sweaters/series4/photo5.png',
+        'images/sweaters/series4/photo6.png',
+        'images/sweaters/series4/photo7.png',
+        'images/sweaters/series5/photo1.png',
+        'images/sweaters/series5/photo2.png',
+        'images/sweaters/series5/photo3.png',
+        'images/sweaters/series5/photo4.png',
+        'images/sweaters/series5/photo5.png',
+        'images/sweaters/series5/photo6.png',
+        'images/sweaters/series5/photo7.png'
+    ];
+
+    function shuffle(arr) {
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    }
+
+    var shuffled = shuffle(allImages.slice());
+    var count = Math.min(9, shuffled.length);
+
+    for (var i = 0; i < count; i++) {
+        var item = document.createElement('div');
+        item.className = 'gallery-item';
+        var img = document.createElement('img');
+        img.src = shuffled[i];
+        img.alt = '';
+        img.loading = 'lazy';
+        item.appendChild(img);
+        galleryContainer.appendChild(item);
+    }
+}
+
+
+// --- КАСТОМНЫЙ КУРСОР ---
+var dot = document.getElementById('cursorDot');
+var ring = document.getElementById('cursorRing');
+var mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+
+if (dot && ring && window.innerWidth > 768) {
+    var cursorStyle = document.createElement('style');
+    cursorStyle.textContent = '*, *::before, *::after { cursor: none !important; }';
+    document.head.appendChild(cursorStyle);
+
+    dot.style.display = 'block';
+    ring.style.display = 'block';
+
+    document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.transform = 'translate(' + (mouseX - 4) + 'px, ' + (mouseY - 4) + 'px)';
+    });
+
+    function animateRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        ring.style.transform = 'translate(' + (ringX - 20) + 'px, ' + (ringY - 20) + 'px)';
+        requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    var cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
+
+    function changeCursorColor() {
+        var color = cursorColors[Math.floor(Math.random() * cursorColors.length)];
+        dot.style.backgroundColor = color;
+        ring.style.borderColor = color;
+    }
+
+    changeCursorColor();
+    setInterval(changeCursorColor, 3000);
+
+    document.querySelectorAll('a, .btn, .service-line, .team-member, .gallery-item, .portfolio-item, .portfolio-video-item, .seeking-card, .skill-block, .extra-card, .tag').forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+            ring.style.width = '60px';
+            ring.style.height = '60px';
+            ring.style.marginLeft = '-10px';
+            ring.style.marginTop = '-10px';
+            ring.style.backgroundColor = 'rgba(255, 182, 217, 0.15)';
+        });
+        el.addEventListener('mouseleave', function() {
+            ring.style.width = '40px';
+            ring.style.height = '40px';
+            ring.style.marginLeft = '0';
+            ring.style.marginTop = '0';
+            ring.style.backgroundColor = 'transparent';
+        });
+    });
+}
+
+
+// --- НАВИГАЦИЯ ---
+var nav = document.getElementById('nav');
+if (nav) {
+    window.addEventListener('scroll', function() {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+}
+
+
+// --- FADE-IN ---
+var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+});
+
+
+// --- ЛЕТАЮЩИЕ СИМВОЛЫ ---
+var symbols = ['✦', '◈', '▲', '●', '◆', '★', '✕', '◎', '▪', '♦', '🐀'];
+var flyColors = ['#0055FF', '#FFB6D9', '#000000'];
+var flyContainer = document.getElementById('flyingSymbols');
+
+if (flyContainer) {
+    function spawnSymbol() {
+        var sym = document.createElement('span');
+        sym.className = 'fly-sym';
+        sym.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        sym.style.left = Math.random() * 100 + 'vw';
+        sym.style.animationDuration = (5 + Math.random() * 10) + 's';
+        sym.style.fontSize = (10 + Math.random() * 20) + 'px';
+        sym.style.color = flyColors[Math.floor(Math.random() * flyColors.length)];
+        flyContainer.appendChild(sym);
+        setTimeout(function() { sym.remove(); }, 15000);
+    }
+    setInterval(spawnSymbol, 1500);
+}
+
+
+// --- ASCII КРЫСЫ ---
+var ratContainer = document.getElementById('ratContainer');
+
+var rats = [
+    '  (\\_  /)\n  ( •_•)\n  / > 🧀',
+    '  ~(____)~\n   (o  o)\n   (>  <)',
+    '     /\\_/\\\n    ( o.o )\n     > ^ <\n    /|   |\\',
+    '  (\\__/)\n  (• ㅅ •)\n  /つ🧀つ',
+    '  🐀',
+    '   ⊂(◉‿◉)つ\n    RATATÁ',
+    '  ⌐■-■\n  ( ◕_◕)\n  🐀 sup',
+    '   ∧_∧\n  ( •ω• )\n  |つ🧀|',
+    '     🐀\n  ╱|、\n (˚ˎ 。7\n  |、˜〵\n  じしˍ,)ノ',
+    '  ~~(°▽°)~~\n   /|  |\\\n   _|  |_'
+];
+
+if (ratContainer) {
+    function spawnRat() {
+        var rat = document.createElement('div');
+        rat.className = 'random-rat';
+        rat.innerHTML = '<pre>' + rats[Math.floor(Math.random() * rats.length)] + '</pre>';
+
+        var maxX = window.innerWidth - 150;
+        var maxY = Math.max(document.documentElement.scrollHeight, 2000) - 150;
+
+        rat.style.left = Math.floor(Math.random() * maxX) + 'px';
+        rat.style.top = Math.floor(Math.random() * maxY) + 'px';
+        rat.style.transform = 'rotate(' + (Math.random() * 30 - 15) + 'deg)';
+
+        var ratColors = ['#0055FF', '#FFB6D9', '#cccccc', '#000000'];
+        rat.style.color = ratColors[Math.floor(Math.random() * ratColors.length)];
+
+        ratContainer.appendChild(rat);
+
+        var lifetime = 6000 + Math.random() * 8000;
+        setTimeout(function() {
+            rat.style.opacity = '0';
+            setTimeout(function() { rat.remove(); }, 1000);
+        }, lifetime);
+    }
+
+    function scheduleRat() {
+        spawnRat();
+        setTimeout(scheduleRat, 2000 + Math.random() * 4000);
+    }
+    scheduleRat();
+}
+
+
+// --- СЛОМАННЫЙ МОНИТОР ---
+var scanContainer = document.getElementById('scanlines');
+
+if (scanContainer) {
+    function spawnVertLine() {
+        var line = document.createElement('div');
+        line.className = 'v-line';
+        var w;
+        if (Math.random() > 0.7) {
+            w = 15 + Math.random() * 60;
+        } else {
+            w = 1 + Math.random() * 4;
+        }
+        line.style.width = w + 'px';
+        line.style.left = Math.random() * 100 + 'vw';
+        if (Math.random() > 0.4) {
+            line.style.height = '100vh';
+            line.style.top = '0';
+        } else {
+            var h = 20 + Math.random() * 60;
+            line.style.height = h + 'vh';
+            line.style.top = Math.random() * (100 - h) + 'vh';
+        }
+        var op = 0.04 + Math.random() * 0.15;
+        if (Math.random() > 0.8) {
+            line.classList.add('v-line-bright');
+            op = 0.15 + Math.random() * 0.2;
+        }
+        scanContainer.appendChild(line);
+        requestAnimationFrame(function() {
+            line.style.transition = 'opacity 0.3s ease';
+            line.style.opacity = String(op);
+        });
+        var holdTime = 500 + Math.random() * 3500;
+        setTimeout(function() {
+            line.style.transition = 'opacity 0.8s ease';
+            line.style.opacity = '0';
+            setTimeout(function() { line.remove(); }, 900);
+        }, holdTime);
+    }
+
+    function spawnFlicker() {
+        var line = document.createElement('div');
+        line.className = 'v-line v-line-flicker';
+        line.style.width = (1 + Math.random() * 3) + 'px';
+        line.style.left = Math.random() * 100 + 'vw';
+        line.style.height = '100vh';
+        line.style.top = '0';
+        scanContainer.appendChild(line);
+        setTimeout(function() { line.remove(); }, 300 + Math.random() * 500);
+    }
+
+    function verticalBurst() {
+        var count = 2 + Math.floor(Math.random() * 5);
+        for (var i = 0; i < count; i++) {
+            (function(delay) {
+                setTimeout(spawnVerticalLine, delay);
+            })(i * 80);
+        }
+        setTimeout(verticalBurst, 12000 + Math.random() * 20000);
+    }
+
+    function greenFlash() {
+        var flash = document.createElement('div');
+        flash.className = 'green-flash';
+        document.body.appendChild(flash);
+        setTimeout(function() { flash.remove(); }, 200);
+    }
+
+    function scheduleVertical() {
+        spawnVerticalLine();
+        setTimeout(scheduleVertical, 3000 + Math.random() * 5000);
+    }
+
+    function scheduleFlicker() {
+        spawnFlicker();
+        setTimeout(scheduleFlicker, 2000 + Math.random() * 6000);
+    }
+
+    function scheduleFlash() {
+        greenFlash();
+        setTimeout(scheduleFlash, 15000 + Math.random() * 25000);
+    }
+
+    scheduleVertical();
+    scheduleFlicker();
+    scheduleFlash();
+    setTimeout(verticalBurst, 8000 + Math.random() * 10000);
+}
+
+
+// --- ЛАЙТБОКС ---
+(function() {
+    var portfolioItems = document.querySelectorAll('.portfolio-item img');
+    if (portfolioItems.length === 0) return;
+
+    var lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = '<button class="lightbox-close">&times;</button><button class="lightbox-nav lightbox-prev">&#8249;</button><img src="" alt=""><button class="lightbox-nav lightbox-next">&#8250;</button>';
+    document.body.appendChild(lightbox);
+
+    var lbImg = lightbox.querySelector('img');
+    var lbClose = lightbox.querySelector('.lightbox-close');
+    var lbPrev = lightbox.querySelector('.lightbox-prev');
+    var lbNext = lightbox.querySelector('.lightbox-next');
+    var currentImages = [];
+    var currentIndex = 0;
+
+    portfolioItems.forEach(function(img) {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', function() {
+            var project = img.closest('.portfolio-project');
+            currentImages = [];
+            project.querySelectorAll('.portfolio-item img').forEach(function(i) {
+                currentImages.push(i.src);
+            });
+            currentIndex = currentImages.indexOf(img.src);
+            lbImg.src = currentImages[currentIndex];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeLB() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function prevLB() {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        lbImg.src = currentImages[currentIndex];
+    }
+
+    function nextLB() {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        lbImg.src = currentImages[currentIndex];
+    }
+
+    lbClose.addEventListener('click', closeLB);
+    lbPrev.addEventListener('click', prevLB);
+    lbNext.addEventListener('click', nextLB);
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) closeLB();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLB();
+        if (e.key === 'ArrowLeft') prevLB();
+        if (e.key === 'ArrowRight') nextLB();
+    });
+})();
+
+
+// --- ВИДЕО ---
+document.querySelectorAll('.portfolio-video-item').forEach(function(item) {
+    var video = item.querySelector('video');
+    if (!video) return;
+    item.addEventListener('click', function() {
+        if (video.paused) {
+            document.querySelectorAll('.portfolio-video-item video').forEach(function(v) {
+                if (v !== video) {
+                    v.pause();
+                    v.closest('.portfolio-video-item').classList.remove('playing');
+                }
+            });
+            video.play();
+            item.classList.add('playing');
+        } else {
+            video.pause();
+            item.classList.remove('playing');
+        }
+    });
+    item.addEventListener('mouseenter', function() {
+        if (video.paused) video.currentTime = 0.5;
+    });
+});

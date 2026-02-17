@@ -259,7 +259,6 @@ a:hover {
    VHS-ГЛИТЧ НА КАРТИНКАХ
    ============================================ */
 
-.bento-item:hover .bento-img-placeholder,
 .gallery-item:hover img,
 .portfolio-item:hover img {
     animation: vhs-img 0.3s steps(2) infinite;
@@ -296,21 +295,6 @@ a:hover {
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 30px rgba(0, 85, 255, 0.08);
     padding: 15px 60px;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo-img {
-    height: 80px;
-    width: auto;
-    transition: height 0.4s;
-}
-
-.nav.scrolled .logo-img {
-    height: 50px;
 }
 
 .nav-links {
@@ -451,13 +435,13 @@ section h2 {
     gap: 12px;
 }
 
-.gallery-grid .gallery-item {
+.gallery-item {
     overflow: hidden;
     border-radius: 8px;
-    aspect-ratio: 1;
+    height: 250px;
 }
 
-.gallery-grid .gallery-item img {
+.gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -465,7 +449,7 @@ section h2 {
     transition: transform 0.4s ease;
 }
 
-.gallery-grid .gallery-item:hover img {
+.gallery-item:hover img {
     transform: scale(1.05);
 }
 
@@ -536,18 +520,14 @@ section h2 {
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-}
-
-.portfolio-grid-large {
     grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
 .portfolio-item {
     overflow: hidden;
     border-radius: 8px;
-    aspect-ratio: 1;
+    height: 200px;
     background-color: #f0f5ff;
 }
 
@@ -563,11 +543,6 @@ section h2 {
     transform: scale(1.05);
 }
 
-.portfolio-grid .portfolio-item:first-child {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
 /* ============================================
    ПОРТФОЛИО — ВИДЕО
    ============================================ */
@@ -581,7 +556,7 @@ section h2 {
 .portfolio-video-item {
     overflow: hidden;
     border-radius: 8px;
-    aspect-ratio: 9/16;
+    height: 400px;
     background-color: #000;
     position: relative;
     cursor: pointer;
@@ -927,8 +902,6 @@ section h2 {
 
 /* ============================================
    АДАПТИВ
-   ============================================ *//* ============================================
-   АДАПТИВ
    ============================================ */
 
 @media (max-width: 768px) {
@@ -956,14 +929,6 @@ section h2 {
 
     .nav-links a {
         font-size: 11px;
-    }
-
-    .logo-img {
-        height: 50px;
-    }
-
-    .nav.scrolled .logo-img {
-        height: 35px;
     }
 
     .hero h1 {
@@ -998,23 +963,12 @@ section h2 {
         gap: 8px;
     }
 
+    .gallery-item {
+        height: 150px;
+    }
+
     .gallery-section {
         padding: 20px 25px 60px;
-    }
-
-    .bento-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .bento-large,
-    .bento-small,
-    .bento-wide {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .bento-services {
-        grid-template-columns: 1fr;
     }
 
     .service-line {
@@ -1039,14 +993,8 @@ section h2 {
         gap: 8px;
     }
 
-    .portfolio-grid-large {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .portfolio-grid .portfolio-item:first-child {
-        grid-column: span 2;
-        grid-row: span 1;
-        aspect-ratio: 2/1;
+    .portfolio-item {
+        height: 140px;
     }
 
     .project-title {
@@ -1057,7 +1005,11 @@ section h2 {
     .portfolio-video-grid {
         grid-template-columns: 1fr;
         gap: 12px;
-        max-width: 400px;
+        max-width: 300px;
+    }
+
+    .portfolio-video-item {
+        height: 500px;
     }
 
     .portfolio-video-item::after {

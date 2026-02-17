@@ -541,7 +541,7 @@ section h2 {
     display: block;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: all 0.35s ease;
     transform-origin: center center;
 }
 
@@ -555,10 +555,15 @@ section h2 {
 }
 
 .portfolio-item.zoomed img {
-    transform: scale(3);
+    object-fit: contain;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    position: relative;
-    z-index: 999;
+    border-radius: 8px;
 }
 
 /* ============================================
@@ -939,7 +944,8 @@ section h2 {
     }
 
     .portfolio-item.zoomed img {
-        transform: scale(2.5);
+        width: 300px;
+        height: 300px;
     }
 
     .project-title {

@@ -107,19 +107,130 @@ if (footerEl) {
 }
 
 
-// --- КАСТОМНЫЙ КУРСОР (ПРОСТОЙ И РАБОЧИЙ) ---
+// --- РАНДОМНАЯ ГАЛЕРЕЯ НА ГЛАВНОЙ ---
+var galleryContainer = document.getElementById('randomGallery');
+
+if (galleryContainer) {
+    // Все картинки из всех папок
+    // ЗАМЕНИ ЭТО на реальные пути к своим картинкам!
+ // --- РАНДОМНАЯ ГАЛЕРЕЯ НА ГЛАВНОЙ ---
+var galleryContainer = document.getElementById('randomGallery');
+
+if (galleryContainer) {
+    var allImages = [
+        // jewerly
+        'images/jewerly/photo1.png',
+        'images/jewerly/photo2.png',
+        'images/jewerly/photo3.png',
+        'images/jewerly/photo4.png',
+        'images/jewerly/photo5.png',
+        'images/jewerly/photo6.png',
+        'images/jewerly/photo7.png',
+        'images/jewerly/photo8.png',
+        'images/jewerly/photo9.png',
+        'images/jewerly/photo10.png',
+        'images/jewerly/photo11.png',
+        // sweaters/series1
+        'images/sweaters/series1/photo1.png',
+        'images/sweaters/series1/photo2.png',
+        'images/sweaters/series1/photo3.png',
+        'images/sweaters/series1/photo4.png',
+        'images/sweaters/series1/photo5.png',
+        // sweaters/series2
+        'images/sweaters/series2/photo1.png',
+        'images/sweaters/series2/photo2.png',
+        'images/sweaters/series2/photo3.png',
+        'images/sweaters/series2/photo4.png',
+        'images/sweaters/series2/photo5.png',
+        'images/sweaters/series2/photo6.png',
+        // sweaters/series3
+        'images/sweaters/series3/photo1.png',
+        'images/sweaters/series3/photo2.png',
+        'images/sweaters/series3/photo3.png',
+        'images/sweaters/series3/photo4.png',
+        'images/sweaters/series3/photo5.png',
+        'images/sweaters/series3/photo6.png',
+        // sweaters/series4
+        'images/sweaters/series4/photo1.png',
+        'images/sweaters/series4/photo2.png',
+        'images/sweaters/series4/photo3.png',
+        'images/sweaters/series4/photo4.png',
+        'images/sweaters/series4/photo5.png',
+        'images/sweaters/series4/photo6.png',
+        'images/sweaters/series4/photo7.png',
+        // sweaters/series5
+        'images/sweaters/series5/photo1.png',
+        'images/sweaters/series5/photo2.png',
+        'images/sweaters/series5/photo3.png',
+        'images/sweaters/series5/photo4.png',
+        'images/sweaters/series5/photo5.png',
+        'images/sweaters/series5/photo6.png',
+        'images/sweaters/series5/photo7.png'
+    ];
+
+    function shuffle(arr) {
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    }
+
+    var shuffled = shuffle(allImages.slice());
+    var count = Math.min(7, shuffled.length);
+
+    for (var i = 0; i < count; i++) {
+        var item = document.createElement('div');
+        item.className = 'gallery-item';
+        var img = document.createElement('img');
+        img.src = shuffled[i];
+        img.alt = '';
+        img.loading = 'lazy';
+        item.appendChild(img);
+        galleryContainer.appendChild(item);
+    }
+}
+    ];
+
+    // Перемешиваем
+    function shuffle(arr) {
+        for (var i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    }
+
+    var shuffled = shuffle(allImages.slice());
+    var count = Math.min(7, shuffled.length);
+
+    for (var i = 0; i < count; i++) {
+        var item = document.createElement('div');
+        item.className = 'gallery-item';
+        var img = document.createElement('img');
+        img.src = shuffled[i];
+        img.alt = '';
+        img.loading = 'lazy';
+        item.appendChild(img);
+        galleryContainer.appendChild(item);
+    }
+}
+
+
+// --- КАСТОМНЫЙ КУРСОР ---
 var dot = document.getElementById('cursorDot');
 var ring = document.getElementById('cursorRing');
 var mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
 
 if (dot && ring && window.innerWidth > 768) {
-
-    // Прячем системный курсор через JS
     var style = document.createElement('style');
     style.textContent = '*, *::before, *::after { cursor: none !important; }';
     document.head.appendChild(style);
 
-    // Показываем наш курсор
     dot.style.display = 'block';
     ring.style.display = 'block';
 
@@ -137,7 +248,6 @@ if (dot && ring && window.innerWidth > 768) {
     }
     animateRing();
 
-    // Меняем цвет каждые 3 сек
     var cursorColors = ['#0055FF', '#FFB6D9', '#000000', '#FF5555', '#00CC88'];
 
     function changeCursorColor() {
@@ -149,8 +259,7 @@ if (dot && ring && window.innerWidth > 768) {
     changeCursorColor();
     setInterval(changeCursorColor, 3000);
 
-    // Hover эффект
-    document.querySelectorAll('a, .btn, .bento-item, .service-card, .team-member').forEach(function(el) {
+    document.querySelectorAll('a, .btn, .bento-item, .service-line, .team-member, .gallery-item').forEach(function(el) {
         el.addEventListener('mouseenter', function() {
             ring.style.width = '60px';
             ring.style.height = '60px';
@@ -215,39 +324,30 @@ var rats = [
 `  (\\_ /)
   ( •_•)
   / > 🧀`,
-
 `  ~(____)~
    (o  o)
    (>  <)`,
-
 `     /\\_/\\
     ( o.o )
      > ^ <
     /|   |\\`,
-
 `  (\\__/)
   (• ㅅ •)
   /つ🧀つ`,
-
 `  🐀`,
-
 `   ⊂(◉‿◉)つ
     RATATÁ`,
-
 `  ⌐■-■
   ( ◕_◕)
   🐀 sup`,
-
 `   ∧_∧
   ( •ω• )
   |つ🧀|`,
-
 `     🐀
   ╱|、
  (˚ˎ 。7
   |、˜〵
   じしˍ,)ノ`,
-
 `  ~~(°▽°)~~
    /|  |\\
    _|  |_`
@@ -290,7 +390,6 @@ if (ratContainer) {
 var scanContainer = document.getElementById('scanlines');
 
 if (scanContainer) {
-
     function spawnVerticalLine() {
         var line = document.createElement('div');
         line.className = 'v-line';

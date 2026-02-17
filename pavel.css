@@ -2,10 +2,6 @@
    ПАВЕЛ — МАКСИМАЛЬНАЯ ДИЧЬ
    ============================================= */
 
-/* ============================================
-   ЦВЕТНЫЕ БЛОБЫ
-   ============================================ */
-
 .color-blobs {
     position: fixed;
     top: 0;
@@ -68,9 +64,7 @@
     75% { transform: translate(60px, 40px) scale(1.05); }
 }
 
-/* ============================================
-   МЕГА-ГЛИТЧ
-   ============================================ */
+/* МЕГА-ГЛИТЧ */
 
 .mega-glitch {
     position: relative;
@@ -127,9 +121,7 @@
     93% { transform: translate(0); opacity: 0; }
 }
 
-/* ============================================
-   HERO
-   ============================================ */
+/* HERO */
 
 .pavel-hero {
     min-height: 100vh;
@@ -246,9 +238,7 @@
     animation-fill-mode: both;
 }
 
-/* ============================================
-   БЕГУЩАЯ СТРОКА
-   ============================================ */
+/* БЕГУЩАЯ СТРОКА */
 
 .chaos-divider {
     padding: 30px 0;
@@ -275,9 +265,7 @@
     100% { transform: translateX(-50%); }
 }
 
-/* ============================================
-   КОНТАКТ
-   ============================================ */
+/* КОНТАКТ */
 
 .pavel-contact {
     padding: 120px 60px;
@@ -322,9 +310,7 @@
     color: #FFB6D9;
 }
 
-/* ============================================
-   АДАПТИВ — ПАВЕЛ
-   ============================================ */
+/* АДАПТИВ */
 
 @media (max-width: 768px) {
 
@@ -332,25 +318,10 @@
         opacity: 0.08;
     }
 
-    .blob-1 {
-        width: 250px;
-        height: 250px;
-    }
-
-    .blob-2 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .blob-3 {
-        width: 300px;
-        height: 300px;
-    }
-
-    .blob-4 {
-        width: 180px;
-        height: 180px;
-    }
+    .blob-1 { width: 250px; height: 250px; }
+    .blob-2 { width: 200px; height: 200px; }
+    .blob-3 { width: 300px; height: 300px; }
+    .blob-4 { width: 180px; height: 180px; }
 
     .pavel-hero {
         flex-direction: column;
@@ -378,35 +349,14 @@
         border-radius: 16px;
     }
 
-    .photo-glitch-overlay {
-        top: 5px;
-        left: -5px;
-    }
+    .photo-glitch-overlay { top: 5px; left: -5px; }
+    .photo-glitch-overlay-2 { top: -5px; left: 5px; }
 
-    .photo-glitch-overlay-2 {
-        top: -5px;
-        left: 5px;
-    }
-
-    .pavel-hero-text {
-        max-width: 100%;
-    }
-
-    .pavel-hero-text h1 {
-        font-size: 9vw;
-    }
-
-    .pavel-role {
-        font-size: 14px;
-    }
-
-    .pavel-tagline {
-        font-size: 17px;
-    }
-
-    .pavel-subtitle {
-        font-size: 14px;
-    }
+    .pavel-hero-text { max-width: 100%; }
+    .pavel-hero-text h1 { font-size: 9vw; }
+    .pavel-role { font-size: 14px; }
+    .pavel-tagline { font-size: 17px; }
+    .pavel-subtitle { font-size: 14px; }
 
     .chaos-divider {
         font-size: 16px;

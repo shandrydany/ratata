@@ -421,7 +421,7 @@ section h2 {
 }
 
 /* ============================================
-   ГАЛЕРЕЯ НА ГЛАВНОЙ — МАЛЕНЬКИЕ КВАДРАТЫ
+   ГАЛЕРЕЯ НА ГЛАВНОЙ
    ============================================ */
 
 .gallery-section {
@@ -526,18 +526,12 @@ section h2 {
 }
 
 .portfolio-item {
-    overflow: visible;
+    overflow: hidden;
     border-radius: 8px;
     height: 200px;
     background-color: #f0f5ff;
     position: relative;
     z-index: 1;
-    transition: z-index 0s;
-}
-
-.portfolio-item:hover {
-    z-index: 99;
-    transition: z-index 0s;
 }
 
 .portfolio-item img {
@@ -552,10 +546,19 @@ section h2 {
 }
 
 .portfolio-item:hover img {
-    transform: scale(2.5);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    object-fit: contain;
-    background-color: #ffffff;
+    transform: scale(1.03);
+}
+
+.portfolio-item.zoomed {
+    z-index: 999;
+    overflow: visible;
+}
+
+.portfolio-item.zoomed img {
+    transform: scale(3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 999;
 }
 
 /* ============================================
@@ -935,8 +938,8 @@ section h2 {
         height: 140px;
     }
 
-    .portfolio-item:hover img {
-        transform: scale(2);
+    .portfolio-item.zoomed img {
+        transform: scale(2.5);
     }
 
     .project-title {

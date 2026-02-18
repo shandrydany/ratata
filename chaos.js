@@ -68,7 +68,7 @@ if (galleryTrack) {
     /* перемешиваем */
     for (var i = ai.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
-        var t = ai[i]; ai[i] = ai[j]; ai[j] = t;
+        var tmp = ai[i]; ai[i] = ai[j]; ai[j] = tmp;
     }
 
     /* дублируем для бесконечности */
@@ -94,9 +94,10 @@ if (galleryTrack) {
         halfWidth = galleryTrack.scrollWidth / 2;
     }
 
-    /* ждём загрузки картинок чтобы получить правильную ширину */
     window.addEventListener('load', getHalf);
-    setTimeout(getHalf, 1000);
+    setTimeout(getHalf, 500);
+    setTimeout(getHalf, 1500);
+    setTimeout(getHalf, 3000);
 
     function animateSlider() {
         pos -= speed;

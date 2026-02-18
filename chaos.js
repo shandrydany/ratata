@@ -74,13 +74,28 @@ if (galleryTrack) {
     /* дублируем для бесконечности */
     var allImgs = ai.concat(ai);
     galleryTrack.innerHTML = '';
+
+    /* считаем сколько загружено */
+    var loadedCount = 0;
+    var totalCount = allImgs.length;
+
     allImgs.forEach(function(src) {
         var div = document.createElement('div');
         div.className = 'gallery-item';
         var img = document.createElement('img');
         img.src = src;
         img.alt = '';
-        img.loading = 'lazy';
+        /* БЕЗ lazy — грузим сразу */
+        img.onload = function() {
+            loadedCount++;
+            if (loadedCount >= Math.floor(totalCount * 0.3)) {
+                /* когда треть загружена — пересчитываем ширину */
+                halfWidth = galleryTrack.scrollWidth / 2;
+            }
+        };
+        img.onerror = function() {
+            loadedCount++;
+        };
         div.appendChild(img);
         galleryTrack.appendChild(div);
     });
@@ -91,15 +106,18 @@ if (galleryTrack) {
     var halfWidth = 0;
 
     function getHalf() {
-        halfWidth = galleryTrack.scrollWidth / 2;
+        var w = galleryTrack.scrollWidth / 2;
+        if (w > 100) halfWidth = w;
     }
 
     window.addEventListener('load', getHalf);
-    setTimeout(getHalf, 500);
+    setTimeout(getHalf, 300);
+    setTimeout(getHalf, 800);
     setTimeout(getHalf, 1500);
     setTimeout(getHalf, 3000);
 
     function animateSlider() {
+        if (halfWidth === 0) getHalf();
         pos -= speed;
         if (halfWidth > 0 && Math.abs(pos) >= halfWidth) {
             pos = 0;

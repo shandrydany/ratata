@@ -38,9 +38,9 @@ if (fe) {
     }, 10000);
 }
 
-/* ГАЛЕРЕЯ НА ГЛАВНОЙ */
-var gc = document.getElementById('randomGallery');
-if (gc) {
+/* ГАЛЕРЕЯ — БЕСКОНЕЧНЫЙ СЛАЙДЕР */
+var galleryTrack = document.getElementById('galleryTrack');
+if (galleryTrack) {
     var ai = [
         'images/jewerly/photo1.png','images/jewerly/photo2.png','images/jewerly/photo3.png',
         'images/jewerly/photo4.png','images/jewerly/photo5.png','images/jewerly/photo6.png',
@@ -64,17 +64,49 @@ if (gc) {
         'images/sweaters/series5/photo5.png','images/sweaters/series5/photo6.png',
         'images/sweaters/series5/photo7.png'
     ];
+
+    /* перемешиваем */
     for (var i = ai.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var t = ai[i]; ai[i] = ai[j]; ai[j] = t;
     }
-    for (var k = 0; k < 9; k++) {
-        var d = document.createElement('div');
-        d.className = 'gallery-item';
-        var im = document.createElement('img');
-        im.src = ai[k]; im.alt = ''; im.loading = 'lazy';
-        d.appendChild(im); gc.appendChild(d);
+
+    /* дублируем для бесконечности */
+    var allImgs = ai.concat(ai);
+    galleryTrack.innerHTML = '';
+    allImgs.forEach(function(src) {
+        var div = document.createElement('div');
+        div.className = 'gallery-item';
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.loading = 'lazy';
+        div.appendChild(img);
+        galleryTrack.appendChild(div);
+    });
+
+    /* анимация */
+    var pos = 0;
+    var speed = 0.6;
+    var halfWidth = 0;
+
+    function getHalf() {
+        halfWidth = galleryTrack.scrollWidth / 2;
     }
+
+    /* ждём загрузки картинок чтобы получить правильную ширину */
+    window.addEventListener('load', getHalf);
+    setTimeout(getHalf, 1000);
+
+    function animateSlider() {
+        pos -= speed;
+        if (halfWidth > 0 && Math.abs(pos) >= halfWidth) {
+            pos = 0;
+        }
+        galleryTrack.style.transform = 'translateX(' + pos + 'px)';
+        requestAnimationFrame(animateSlider);
+    }
+    animateSlider();
 }
 
 /* КЛИК-ЗУМ ПОРТФОЛИО */

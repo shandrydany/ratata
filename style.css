@@ -421,50 +421,47 @@ section h2 {
 }
 
 /* ============================================
-   ГАЛЕРЕЯ НА ГЛАВНОЙ
+   ГАЛЕРЕЯ НА ГЛАВНОЙ — БЕСКОНЕЧНЫЙ СЛАЙДЕР
    ============================================ */
 
 .gallery-section {
-  padding: 20px;
-  width: 100vw;
-  overflow-x: hidden;
+    padding: 40px 0 60px 0;
+    width: 100%;
+    overflow: hidden;
 }
 
-.gallery-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  justify-content: flex-start;
-  width: 100vw;
-  margin: 0 auto;
+.gallery-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Каждый элемент - блок с inline-block для сохранения пропорций картинки */
+.gallery-track {
+    display: flex;
+    gap: 6px;
+    will-change: transform;
+    user-select: none;
+}
+
 .gallery-item {
-  position: relative;
-  flex: 0 1 auto;
-  max-width: 120px; /* Максимальная ширина для маленьких фоток */
-  cursor: pointer;
+    flex: 0 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-/* Картинка занимает всю ширину, высота auto для сохранения пропорций */
 .gallery-item img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
-  transition: transform 0.3s ease;
+    height: 200px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 6px;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
-
-/* Адаптив для маленьких экранов */
-@media (max-width: 768px) {
-  .gallery-item {
-    max-width: 90px;
-  }
+.gallery-item:hover {
+    transform: scale(1.05);
+    z-index: 10;
 }
 
 /* ============================================
@@ -577,6 +574,7 @@ section h2 {
     transform: translate(-50%, -50%);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
+    background: #fff;
 }
 
 /* ============================================
@@ -917,17 +915,11 @@ section h2 {
     }
 
     .gallery-section {
-        padding: 20px 25px 60px;
+        padding: 20px 0 40px 0;
     }
 
-    .gallery-grid {
-        grid-template-columns: repeat(3, 90px);
-        gap: 6px;
-    }
-
-    .gallery-item {
-        width: 90px;
-        height: 90px;
+    .gallery-item img {
+        height: 120px;
     }
 
     .service-line {
@@ -969,11 +961,10 @@ section h2 {
     .portfolio-video-grid {
         grid-template-columns: 1fr;
         gap: 12px;
-        max-width: 300px;
     }
 
     .portfolio-video-item {
-        height: 500px;
+        height: 400px;
     }
 
     .portfolio-video-item::after {

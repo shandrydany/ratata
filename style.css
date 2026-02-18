@@ -425,33 +425,46 @@ section h2 {
    ============================================ */
 
 .gallery-section {
-    padding: 40px 60px 120px;
+  padding: 20px;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 120px);
-    gap: 8px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-start;
+  width: 100vw;
+  margin: 0 auto;
 }
 
+/* Каждый элемент - блок с inline-block для сохранения пропорций картинки */
 .gallery-item {
-    overflow: hidden;
-    border-radius: 6px;
-    width: 120px;
-    height: 120px;
+  position: relative;
+  flex: 0 1 auto;
+  max-width: 120px; /* Максимальная ширина для маленьких фоток */
+  cursor: pointer;
 }
 
+/* Картинка занимает всю ширину, высота auto для сохранения пропорций */
 .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+/* Адаптив для маленьких экранов */
+@media (max-width: 768px) {
+  .gallery-item {
+    max-width: 90px;
+  }
 }
 
 /* ============================================

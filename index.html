@@ -1,114 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Главная — RATATÁ</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RATATÁ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="vhs-noise"></div>
-  <div id="scanlines"></div>
-  <div class="crt-lines"></div>
-  <div id="ratContainer"></div>
-  <div class="flying-symbols" id="flyingSymbols"></div>
 
-  <nav class="nav" id="nav">
-    <div class="nav-links">
-      <a href="index.html" class="active">Главная</a>
-      <a href="about.html">Мы</a>
-      <a href="ideas.html">ИДЕИ</a>
-    </div>
-  </nav>
+    <div class="vhs-noise"></div>
+    <div id="scanlines"></div>
+    <div class="crt-lines"></div>
+    <div id="ratContainer"></div>
+    <div class="flying-symbols" id="flyingSymbols"></div>
 
-  <section class="gallery-section">
-    <div id="randomGallery" class="gallery-slider">
-      <div class="gallery-track" id="galleryTrack"></div>
-    </div>
+    <nav class="nav" id="nav">
+        <div class="nav-links">
+            <a href="index.html" class="active">Главная</a>
+            <a href="about.html">Мы</a>
+            <a href="ideas.html">ИДЕИ</a>
+        </div>
+    </nav>
 
-    <div style="text-align:center; margin-top: 20px;">
-      <a href="ideas.html" class="btn btn-dark">Смотреть Идеи</a>
-    </div>
-  </section>
+    <section class="hero">
+        <h1 class="glitch" data-text="RATATÁ">RATATÁ</h1>
+        <p class="hero-sub">Дичь без компромиссов</p>
+        <p class="hero-desc random-phrase"></p>
+    </section>
 
-  <script src="chaos.js"></script>
-  <script>
-    // Горизонтальный бесконечный скролл для галереи
+    <section class="gallery-section">
+        <div class="gallery-slider">
+            <div class="gallery-track" id="galleryTrack"></div>
+        </div>
+        <div style="text-align:center; margin-top: 30px;">
+            <a href="ideas.html" class="btn btn-dark">Смотреть Идеи</a>
+        </div>
+    </section>
 
-    const galleryTrack = document.getElementById('galleryTrack');
+    <footer class="footer">
+        <div class="footer-cta reveal">
+            <h2 class="glitch" data-text="Давайте сделаем красоту вместе">Давайте сделаем красоту вместе</h2>
+            <a href="mailto:pavel@ratataaa.art" class="btn btn-dark">
+                <span class="btn-text">⟶ ✦ ◈ ▲ 🐀</span>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <p class="random-footer"></p>
+        </div>
+    </footer>
 
-    const images = [
-      'images/jewerly/photo1.png',
-      'images/jewerly/photo2.png',
-      'images/jewerly/photo3.png',
-      'images/jewerly/photo4.png',
-      'images/jewerly/photo5.png',
-      'images/jewerly/photo6.png',
-      'images/jewerly/photo7.png',
-      'images/jewerly/photo8.png',
-      'images/jewerly/photo9.png',
-      'images/jewerly/photo10.png',
-      'images/jewerly/photo11.png',
-      'images/sweaters/series1/photo1.png',
-      'images/sweaters/series1/photo2.png',
-      'images/sweaters/series1/photo3.png',
-      'images/sweaters/series1/photo4.png',
-      'images/sweaters/series1/photo5.png',
-      'images/sweaters/series2/photo1.png',
-      'images/sweaters/series2/photo2.png',
-      'images/sweaters/series2/photo3.png',
-      'images/sweaters/series2/photo4.png',
-      'images/sweaters/series2/photo5.png',
-      'images/sweaters/series2/photo6.png',
-      'images/sweaters/series3/photo1.png',
-      'images/sweaters/series3/photo2.png',
-      'images/sweaters/series3/photo3.png',
-      'images/sweaters/series3/photo4.png',
-      'images/sweaters/series3/photo5.png',
-      'images/sweaters/series3/photo6.png',
-      'images/sweaters/series4/photo1.png',
-      'images/sweaters/series4/photo2.png',
-      'images/sweaters/series4/photo3.png',
-      'images/sweaters/series4/photo4.png',
-      'images/sweaters/series4/photo5.png',
-      'images/sweaters/series4/photo6.png',
-      'images/sweaters/series4/photo7.png',
-      'images/sweaters/series5/photo1.png',
-      'images/sweaters/series5/photo2.png',
-      'images/sweaters/series5/photo3.png',
-      'images/sweaters/series5/photo4.png',
-      'images/sweaters/series5/photo5.png',
-      'images/sweaters/series5/photo6.png',
-      'images/sweaters/series5/photo7.png'
-    ];
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-    // Создаем двойной набор для бесконечного скролла
-    function populateGallery() {
-      galleryTrack.innerHTML = '';
-      images.concat(images).forEach(src => {
-        const div = document.createElement('div');
-        div.className = 'gallery-item';
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = '';
-        div.appendChild(img);
-        galleryTrack.appendChild(div);
-      });
-    }
-    populateGallery();
-
-    // Анимация: сдвигаем галерею влево и сбрасываем обратно
-    let pos = 0;
-    const speed = 0.5; // px за кадр (можно подкорректировать)
-    function animate() {
-      pos -= speed;
-      if (Math.abs(pos) >= galleryTrack.scrollWidth / 2) {
-        pos = 0;
-      }
-      galleryTrack.style.transform = `translateX(${pos}px)`;
-      requestAnimationFrame(animate);
-    }
-    animate();
-  </script>
+    <script src="chaos.js"></script>
 </body>
 </html>

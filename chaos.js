@@ -59,7 +59,10 @@ function closeLightbox() {
 
 if (lightbox) {
     lightbox.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('touchend', closeLightbox);
+    lightbox.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        closeLightbox();
+    }, { passive: false });
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeLightbox();
     });
@@ -86,7 +89,7 @@ function autoLoadGrid(gridId, folder, ext) {
             img.alt = '';
             img.loading = 'lazy';
 
-            img.onload = function() {
+            function attachEvents() {
                 div.addEventListener('click', function(e) {
                     e.stopPropagation();
                     openLightbox(img.src);
@@ -96,7 +99,13 @@ function autoLoadGrid(gridId, folder, ext) {
                     e.stopPropagation();
                     openLightbox(img.src);
                 }, { passive: false });
-            };
+            }
+
+            if (img.complete && img.naturalWidth > 0) {
+                attachEvents();
+            } else {
+                img.onload = attachEvents;
+            }
 
             img.onerror = function() {
                 div.remove();
@@ -158,11 +167,7 @@ function autoLoadVideos(gridId, folder) {
                 }
             }
 
-            video.onerror = function() {
-                div.remove();
-            };
-
-            video.onloadedmetadata = function() {
+            function attachVideoEvents() {
                 div.addEventListener('click', function(e) {
                     e.stopPropagation();
                     toggleVideo();
@@ -172,7 +177,18 @@ function autoLoadVideos(gridId, folder) {
                     e.stopPropagation();
                     toggleVideo();
                 }, { passive: false });
+            }
+
+            video.onerror = function() {
+                div.remove();
             };
+
+            video.onloadedmetadata = attachVideoEvents;
+
+            /* на случай если уже загружено */
+            if (video.readyState >= 1) {
+                attachVideoEvents();
+            }
 
             div.appendChild(video);
             div.appendChild(playBtn);

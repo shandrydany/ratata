@@ -43,15 +43,42 @@ if (fe) {
 
 
 /* ============================
-   АВТОЗАГРУЗКА ФОТО НА ИДЕЯХ
+   ЛАЙТБОКС
+   ============================ */
+var lightbox = document.getElementById('lightbox');
+var lightboxImg = document.getElementById('lightboxImg');
+
+function openLightbox(src) {
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+}
+
+if (lightbox) {
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+}
+
+
+/* ============================
+   АВТОЗАГРУЗКА ФОТО
    ============================ */
 var MAX_PHOTOS = 100;
 var MAX_VIDEOS = 20;
 
-function autoLoadPhotos(gridId, folder, ext) {
+function autoLoadGrid(gridId, folder, ext) {
     var grid = document.getElementById(gridId);
     if (!grid) return;
     ext = ext || '.png';
+
     for (var n = 1; n <= MAX_PHOTOS; n++) {
         (function(num) {
             var div = document.createElement('div');
@@ -61,14 +88,9 @@ function autoLoadPhotos(gridId, folder, ext) {
             img.alt = '';
             img.loading = 'lazy';
             img.onload = function() {
-                /* фото загрузилось — добавляем клик-зум */
                 div.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    var wasZoomed = div.classList.contains('zoomed');
-                    document.querySelectorAll('.portfolio-item.zoomed').forEach(function(z) {
-                        z.classList.remove('zoomed');
-                    });
-                    if (!wasZoomed) div.classList.add('zoomed');
+                    openLightbox(img.src);
                 });
             };
             img.onerror = function() {
@@ -83,6 +105,7 @@ function autoLoadPhotos(gridId, folder, ext) {
 function autoLoadVideos(gridId, folder) {
     var grid = document.getElementById(gridId);
     if (!grid) return;
+
     for (var n = 1; n <= MAX_VIDEOS; n++) {
         (function(num) {
             var div = document.createElement('div');
@@ -93,21 +116,22 @@ function autoLoadVideos(gridId, folder) {
             video.loop = true;
             video.playsInline = true;
             video.preload = 'metadata';
-
             video.onloadedmetadata = function() {
-                /* видео загрузилось — добавляем клик */
                 div.addEventListener('click', function() {
                     if (video.paused) {
                         document.querySelectorAll('.portfolio-video-item video').forEach(function(ov) {
                             if (ov !== video) {
                                 ov.pause();
+                                ov.muted = true;
                                 ov.closest('.portfolio-video-item').classList.remove('playing');
                             }
                         });
+                        video.muted = false;
                         video.play();
                         div.classList.add('playing');
                     } else {
                         video.pause();
+                        video.muted = true;
                         div.classList.remove('playing');
                     }
                 });
@@ -121,9 +145,8 @@ function autoLoadVideos(gridId, folder) {
     }
 }
 
-/* Запускаем автозагрузку */
-autoLoadPhotos('jewelryGrid', 'images/jewelry', '.png');
-autoLoadPhotos('sweatersGrid', 'images/sweaters', '.png');
+autoLoadGrid('jewelryGrid', 'images/jewelry', '.png');
+autoLoadGrid('sweatersGrid', 'images/sweaters', '.png');
 autoLoadVideos('aiGrid', 'images/ai');
 
 
@@ -149,7 +172,6 @@ if (galleryTrack) {
 
     var allImgs = ai.concat(ai);
     galleryTrack.innerHTML = '';
-
     var loadedCount = 0;
 
     allImgs.forEach(function(src) {
@@ -199,27 +221,46 @@ if (galleryTrack) {
 }
 
 
-/* КЛИК-ЗУМ ПОРТФОЛИО (для статичных элементов) */
-document.querySelectorAll('.portfolio-item').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var wasZoomed = item.classList.contains('zoomed');
-        document.querySelectorAll('.portfolio-item.zoomed').forEach(function(z) {
-            z.classList.remove('zoomed');
-        });
-        if (!wasZoomed) {
-            item.classList.add('zoomed');
+/* ============================
+   ПАША УБЕГАЕТ ОТ МЫШИ
+   ============================ */
+var pavelBlock = document.getElementById('pavelBlock');
+if (pavelBlock && window.innerWidth > 768) {
+    pavelBlock.classList.add('runaway');
+    var offsetX = 0, offsetY = 0;
+
+    document.addEventListener('mousemove', function(e) {
+        var rect = pavelBlock.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = e.clientX - cx;
+        var dy = e.clientY - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 250) {
+            var force = (250 - dist) / 250;
+            var angle = Math.atan2(dy, dx);
+            offsetX -= Math.cos(angle) * force * 18;
+            offsetY -= Math.sin(angle) * force * 18;
+
+            /* Ограничиваем чтобы не уехал за экран */
+            offsetX = Math.max(-300, Math.min(300, offsetX));
+            offsetY = Math.max(-200, Math.min(200, offsetY));
+
+            pavelBlock.style.transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
+        } else {
+            /* Плавно возвращается */
+            offsetX *= 0.95;
+            offsetY *= 0.95;
+            pavelBlock.style.transform = 'translate(' + offsetX + 'px,' + offsetY + 'px)';
         }
     });
-});
-document.addEventListener('click', function() {
-    document.querySelectorAll('.portfolio-item.zoomed').forEach(function(z) {
-        z.classList.remove('zoomed');
-    });
-});
+}
 
 
-/* КУРСОР */
+/* ============================
+   КУРСОР
+   ============================ */
 var dot = document.getElementById('cursorDot');
 var ring = document.getElementById('cursorRing');
 var mx = -100, my = -100, rx = -100, ry = -100;
@@ -260,7 +301,9 @@ if (dot && ring && window.innerWidth > 768) {
 }
 
 
-/* НАВИГАЦИЯ */
+/* ============================
+   НАВИГАЦИЯ
+   ============================ */
 var nav = document.getElementById('nav');
 if (nav) {
     window.addEventListener('scroll', function() {
@@ -269,14 +312,18 @@ if (nav) {
 }
 
 
-/* FADE-IN */
+/* ============================
+   FADE-IN
+   ============================ */
 var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 
 
-/* ЛЕТАЮЩИЕ СИМВОЛЫ */
+/* ============================
+   ЛЕТАЮЩИЕ СИМВОЛЫ
+   ============================ */
 var syms = ['✦','◈','▲','●','◆','★','✕','◎','▪','♦','🐀'];
 var fCols = ['#0055FF','#FFB6D9','#000000'];
 var fC = document.getElementById('flyingSymbols');
@@ -296,7 +343,9 @@ if (fC) {
 }
 
 
-/* ASCII КРЫСЫ */
+/* ============================
+   ASCII КРЫСЫ
+   ============================ */
 var rC = document.getElementById('ratContainer');
 var rats = [
     '  (\\_  /)\n  ( •_•)\n  / > 🧀',
@@ -328,7 +377,9 @@ if (rC) {
 }
 
 
-/* СЛОМАННЫЙ МОНИТОР */
+/* ============================
+   СЛОМАННЫЙ МОНИТОР
+   ============================ */
 var sC = document.getElementById('scanlines');
 if (sC) {
     function spVL() {
@@ -374,18 +425,3 @@ if (sC) {
     s1(); s2(); s3();
     setTimeout(vB, 8000 + Math.random() * 10000);
 }
-
-
-/* ВИДЕО (для статичных элементов) */
-document.querySelectorAll('.portfolio-video-item').forEach(function(item) {
-    var v = item.querySelector('video');
-    if (!v) return;
-    item.addEventListener('click', function() {
-        if (v.paused) {
-            document.querySelectorAll('.portfolio-video-item video').forEach(function(ov) {
-                if (ov !== v) { ov.pause(); ov.closest('.portfolio-video-item').classList.remove('playing'); }
-            });
-            v.play(); item.classList.add('playing');
-        } else { v.pause(); item.classList.remove('playing'); }
-    });
-});

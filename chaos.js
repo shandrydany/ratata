@@ -1,6 +1,5 @@
 console.log('%c\n  🐀 RATATÁ\n', 'color: #0055FF; font-size: 14px;');
 
-
 var homerQuotes = [
     'Гнев, богиня, воспой Ахиллеса, Пелеева сына',
     'Муза, скажи мне о том многоопытном муже',
@@ -24,10 +23,8 @@ var homerQuotes = [
     'Гефест ковал щит, и на нём уместился весь мир'
 ];
 
-
 var hp = document.querySelector('.random-phrase');
 if (hp) hp.textContent = homerQuotes[Math.floor(Math.random() * homerQuotes.length)];
-
 
 var fe = document.querySelector('.random-footer');
 if (fe) {
@@ -90,12 +87,10 @@ function autoLoadGrid(gridId, folder, ext) {
             img.loading = 'lazy';
 
             img.onload = function() {
-                /* клик — мышь */
                 div.addEventListener('click', function(e) {
                     e.stopPropagation();
                     openLightbox(img.src);
                 });
-                /* тап — мобильный */
                 div.addEventListener('touchend', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -113,6 +108,10 @@ function autoLoadGrid(gridId, folder, ext) {
     }
 }
 
+
+/* ============================
+   ВИДЕО С ПРЕВЬЮ
+   ============================ */
 function autoLoadVideos(gridId, folder) {
     var grid = document.getElementById(gridId);
     if (!grid) return;
@@ -121,12 +120,21 @@ function autoLoadVideos(gridId, folder) {
         (function(num) {
             var div = document.createElement('div');
             div.className = 'portfolio-video-item';
+
             var video = document.createElement('video');
             video.src = folder + '/video' + num + '.MP4';
-            video.muted = true;
             video.loop = true;
             video.playsInline = true;
             video.preload = 'metadata';
+            video.muted = true;
+
+            video.addEventListener('loadeddata', function() {
+                video.currentTime = 0.1;
+            });
+
+            var playBtn = document.createElement('div');
+            playBtn.className = 'video-play-btn';
+            playBtn.innerHTML = '▶';
 
             function toggleVideo() {
                 if (video.paused) {
@@ -135,17 +143,24 @@ function autoLoadVideos(gridId, folder) {
                             ov.pause();
                             ov.muted = true;
                             ov.closest('.portfolio-video-item').classList.remove('playing');
+                            ov.closest('.portfolio-video-item').querySelector('.video-play-btn').innerHTML = '▶';
                         }
                     });
                     video.muted = false;
                     video.play();
                     div.classList.add('playing');
+                    playBtn.innerHTML = '❙❙';
                 } else {
                     video.pause();
                     video.muted = true;
                     div.classList.remove('playing');
+                    playBtn.innerHTML = '▶';
                 }
             }
+
+            video.onerror = function() {
+                div.remove();
+            };
 
             video.onloadedmetadata = function() {
                 div.addEventListener('click', function(e) {
@@ -159,11 +174,8 @@ function autoLoadVideos(gridId, folder) {
                 }, { passive: false });
             };
 
-            video.onerror = function() {
-                div.remove();
-            };
-
             div.appendChild(video);
+            div.appendChild(playBtn);
             grid.appendChild(div);
         })(n);
     }

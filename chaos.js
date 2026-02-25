@@ -1,5 +1,6 @@
 console.log('%c\n  🐀 RATATÁ\n', 'color: #0055FF; font-size: 14px;');
 
+
 var homerQuotes = [
     'Гнев, богиня, воспой Ахиллеса, Пелеева сына',
     'Муза, скажи мне о том многоопытном муже',
@@ -23,8 +24,10 @@ var homerQuotes = [
     'Гефест ковал щит, и на нём уместился весь мир'
 ];
 
+
 var hp = document.querySelector('.random-phrase');
 if (hp) hp.textContent = homerQuotes[Math.floor(Math.random() * homerQuotes.length)];
+
 
 var fe = document.querySelector('.random-footer');
 if (fe) {
@@ -38,46 +41,116 @@ if (fe) {
     }, 10000);
 }
 
-/* ГАЛЕРЕЯ — БЕСКОНЕЧНЫЙ СЛАЙДЕР */
+
+/* ============================
+   АВТОЗАГРУЗКА ФОТО НА ИДЕЯХ
+   ============================ */
+var MAX_PHOTOS = 100;
+var MAX_VIDEOS = 20;
+
+function autoLoadPhotos(gridId, folder, ext) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    ext = ext || '.png';
+    for (var n = 1; n <= MAX_PHOTOS; n++) {
+        (function(num) {
+            var div = document.createElement('div');
+            div.className = 'portfolio-item';
+            var img = document.createElement('img');
+            img.src = folder + '/photo' + num + ext;
+            img.alt = '';
+            img.loading = 'lazy';
+            img.onload = function() {
+                /* фото загрузилось — добавляем клик-зум */
+                div.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var wasZoomed = div.classList.contains('zoomed');
+                    document.querySelectorAll('.portfolio-item.zoomed').forEach(function(z) {
+                        z.classList.remove('zoomed');
+                    });
+                    if (!wasZoomed) div.classList.add('zoomed');
+                });
+            };
+            img.onerror = function() {
+                div.remove();
+            };
+            div.appendChild(img);
+            grid.appendChild(div);
+        })(n);
+    }
+}
+
+function autoLoadVideos(gridId, folder) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    for (var n = 1; n <= MAX_VIDEOS; n++) {
+        (function(num) {
+            var div = document.createElement('div');
+            div.className = 'portfolio-video-item';
+            var video = document.createElement('video');
+            video.src = folder + '/video' + num + '.MP4';
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.preload = 'metadata';
+
+            video.onloadedmetadata = function() {
+                /* видео загрузилось — добавляем клик */
+                div.addEventListener('click', function() {
+                    if (video.paused) {
+                        document.querySelectorAll('.portfolio-video-item video').forEach(function(ov) {
+                            if (ov !== video) {
+                                ov.pause();
+                                ov.closest('.portfolio-video-item').classList.remove('playing');
+                            }
+                        });
+                        video.play();
+                        div.classList.add('playing');
+                    } else {
+                        video.pause();
+                        div.classList.remove('playing');
+                    }
+                });
+            };
+            video.onerror = function() {
+                div.remove();
+            };
+            div.appendChild(video);
+            grid.appendChild(div);
+        })(n);
+    }
+}
+
+/* Запускаем автозагрузку */
+autoLoadPhotos('jewelryGrid', 'images/jewelry', '.png');
+autoLoadPhotos('sweatersGrid', 'images/sweaters', '.png');
+autoLoadVideos('aiGrid', 'images/ai');
+
+
+/* ============================
+   ГАЛЕРЕЯ — БЕСКОНЕЧНЫЙ СЛАЙДЕР
+   ============================ */
 var galleryTrack = document.getElementById('galleryTrack');
 if (galleryTrack) {
-    var ai = [
-        'images/jewerly/photo1.png','images/jewerly/photo2.png','images/jewerly/photo3.png',
-        'images/jewerly/photo4.png','images/jewerly/photo5.png','images/jewerly/photo6.png',
-        'images/jewerly/photo7.png','images/jewerly/photo8.png','images/jewerly/photo9.png',
-        'images/jewerly/photo10.png','images/jewerly/photo11.png',
-        'images/sweaters/series1/photo1.png','images/sweaters/series1/photo2.png',
-        'images/sweaters/series1/photo3.png','images/sweaters/series1/photo4.png',
-        'images/sweaters/series1/photo5.png',
-        'images/sweaters/series2/photo1.png','images/sweaters/series2/photo2.png',
-        'images/sweaters/series2/photo3.png','images/sweaters/series2/photo4.png',
-        'images/sweaters/series2/photo5.png','images/sweaters/series2/photo6.png',
-        'images/sweaters/series3/photo1.png','images/sweaters/series3/photo2.png',
-        'images/sweaters/series3/photo3.png','images/sweaters/series3/photo4.png',
-        'images/sweaters/series3/photo5.png','images/sweaters/series3/photo6.png',
-        'images/sweaters/series4/photo1.png','images/sweaters/series4/photo2.png',
-        'images/sweaters/series4/photo3.png','images/sweaters/series4/photo4.png',
-        'images/sweaters/series4/photo5.png','images/sweaters/series4/photo6.png',
-        'images/sweaters/series4/photo7.png',
-        'images/sweaters/series5/photo1.png','images/sweaters/series5/photo2.png',
-        'images/sweaters/series5/photo3.png','images/sweaters/series5/photo4.png',
-        'images/sweaters/series5/photo5.png','images/sweaters/series5/photo6.png',
-        'images/sweaters/series5/photo7.png'
-    ];
 
-    /* перемешиваем */
+    var ai = [];
+    var folders = ['images/jewelry', 'images/sweaters'];
+
+    folders.forEach(function(folder) {
+        for (var n = 1; n <= MAX_PHOTOS; n++) {
+            ai.push(folder + '/photo' + n + '.png');
+        }
+    });
+
     for (var i = ai.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var tmp = ai[i]; ai[i] = ai[j]; ai[j] = tmp;
     }
 
-    /* дублируем для бесконечности */
     var allImgs = ai.concat(ai);
     galleryTrack.innerHTML = '';
 
-    /* считаем сколько загружено */
     var loadedCount = 0;
-    var totalCount = allImgs.length;
 
     allImgs.forEach(function(src) {
         var div = document.createElement('div');
@@ -85,22 +158,19 @@ if (galleryTrack) {
         var img = document.createElement('img');
         img.src = src;
         img.alt = '';
-        /* БЕЗ lazy — грузим сразу */
         img.onload = function() {
             loadedCount++;
-            if (loadedCount >= Math.floor(totalCount * 0.3)) {
-                /* когда треть загружена — пересчитываем ширину */
+            if (loadedCount >= 10) {
                 halfWidth = galleryTrack.scrollWidth / 2;
             }
         };
         img.onerror = function() {
-            loadedCount++;
+            div.remove();
         };
         div.appendChild(img);
         galleryTrack.appendChild(div);
     });
 
-    /* анимация */
     var pos = 0;
     var speed = 0.6;
     var halfWidth = 0;
@@ -111,10 +181,10 @@ if (galleryTrack) {
     }
 
     window.addEventListener('load', getHalf);
-    setTimeout(getHalf, 300);
-    setTimeout(getHalf, 800);
+    setTimeout(getHalf, 500);
     setTimeout(getHalf, 1500);
     setTimeout(getHalf, 3000);
+    setTimeout(getHalf, 5000);
 
     function animateSlider() {
         if (halfWidth === 0) getHalf();
@@ -128,7 +198,8 @@ if (galleryTrack) {
     animateSlider();
 }
 
-/* КЛИК-ЗУМ ПОРТФОЛИО */
+
+/* КЛИК-ЗУМ ПОРТФОЛИО (для статичных элементов) */
 document.querySelectorAll('.portfolio-item').forEach(function(item) {
     item.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -146,6 +217,7 @@ document.addEventListener('click', function() {
         z.classList.remove('zoomed');
     });
 });
+
 
 /* КУРСОР */
 var dot = document.getElementById('cursorDot');
@@ -187,6 +259,7 @@ if (dot && ring && window.innerWidth > 768) {
     });
 }
 
+
 /* НАВИГАЦИЯ */
 var nav = document.getElementById('nav');
 if (nav) {
@@ -195,11 +268,13 @@ if (nav) {
     });
 }
 
+
 /* FADE-IN */
 var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
 
 /* ЛЕТАЮЩИЕ СИМВОЛЫ */
 var syms = ['✦','◈','▲','●','◆','★','✕','◎','▪','♦','🐀'];
@@ -219,6 +294,7 @@ if (fC) {
     }
     setInterval(spSym, 1500);
 }
+
 
 /* ASCII КРЫСЫ */
 var rC = document.getElementById('ratContainer');
@@ -250,6 +326,7 @@ if (rC) {
     function schRat() { spRat(); setTimeout(schRat, 2000 + Math.random() * 4000); }
     schRat();
 }
+
 
 /* СЛОМАННЫЙ МОНИТОР */
 var sC = document.getElementById('scanlines');
@@ -298,7 +375,8 @@ if (sC) {
     setTimeout(vB, 8000 + Math.random() * 10000);
 }
 
-/* ВИДЕО */
+
+/* ВИДЕО (для статичных элементов) */
 document.querySelectorAll('.portfolio-video-item').forEach(function(item) {
     var v = item.querySelector('video');
     if (!v) return;

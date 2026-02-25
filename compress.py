@@ -2,30 +2,27 @@ import os
 from PIL import Image
 
 # === НАСТРОЙКИ ===
-ROOT_DIR = 'images'          # папка с картинками
-MAX_WIDTH = 1200             # максимальная ширина в пикселях
-MAX_HEIGHT = 1200            # максимальная высота в пикселях
-QUALITY = 80                 # качество JPEG (1-100, 80 — хороший баланс)
-CONVERT_TO_WEBP = False      # True — конвертировать в WebP (ещё легче)
+ROOT_DIR = 'images'
+MAX_WIDTH = 1200
+MAX_HEIGHT = 1200
+QUALITY = 80
 # =================
 
-SUPPORTED = ('.png', '.jpg', '.jpeg', '.bmp', '.tiff')
+SUPPORTED = ('.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.webp')
 
 def get_size_mb(path):
     return os.path.getsize(path) / (1024 * 1024)
 
-def compress_image(filepath):
+def compress_image(filepath, save_path):
     try:
         original_size = get_size_mb(filepath)
         img = Image.open(filepath)
 
-        # Убираем альфа-канал если JPEG
         if img.mode == 'RGBA':
             img = img.convert('RGB')
         elif img.mode == 'P':
             img = img.convert('RGB')
 
-        # Ресайз если больше максимума
         w, h = img.size
         if w > MAX_WIDTH or h > MAX_HEIGHT:
             ratio = min(MAX_WIDTH / w, MAX_HEIGHT / h)
@@ -33,58 +30,93 @@ def compress_image(filepath):
             new_h = int(h * ratio)
             img = img.resize((new_w, new_h), Image.LANCZOS)
 
-        if CONVERT_TO_WEBP:
-            # Сохраняем как WebP
-            new_path = os.path.splitext(filepath)[0] + '.webp'
-            img.save(new_path, 'WEBP', quality=QUALITY)
-            new_size = get_size_mb(new_path)
-            # Удаляем оригинал
-            if new_path != filepath:
-                os.remove(filepath)
-            print(f'  ✅ {filepath}')
-            print(f'     {original_size:.2f} MB → {new_size:.2f} MB (WebP)')
+        ext = os.path.splitext(save_path)[1].lower()
+        if ext == '.png':
+            img.save(save_path, 'PNG', optimize=True)
         else:
-            # Сохраняем как PNG (сжатый)
-            ext = os.path.splitext(filepath)[1].lower()
-            if ext == '.png':
-                img.save(filepath, 'PNG', optimize=True)
-            else:
-                img.save(filepath, 'JPEG', quality=QUALITY, optimize=True)
-            new_size = get_size_mb(filepath)
-            print(f'  ✅ {filepath}')
-            print(f'     {original_size:.2f} MB → {new_size:.2f} MB')
+            img.save(save_path, 'JPEG', quality=QUALITY, optimize=True)
 
+        new_size = get_size_mb(save_path)
         return original_size, new_size
 
     except Exception as e:
         print(f'  ❌ {filepath} — ошибка: {e}')
         return 0, 0
 
-def main():
+def process_folder(folder_path):
+    """Сжимает и переименовывает фото в папке по порядку: photo1, photo2..."""
+    
+    # Собираем все фото в папке
+    files = []
+    for f in sorted(os.listdir(folder_path)):
+        ext = os.path.splitext(f)[1].lower()
+        if ext in SUPPORTED:
+            files.append(f)
+    
+    if not files:
+        return 0, 0, 0
+
     total_before = 0
     total_after = 0
     count = 0
 
-    print(f'\n🐀 RATATÁ — Сжатие картинок для веба')
+    # Сначала переименовываем во временные имена (чтобы не было конфликтов)
+    temp_files = []
+    for i, f in enumerate(files):
+        old_path = os.path.join(folder_path, f)
+        ext = os.path.splitext(f)[1].lower()
+        temp_name = f'_temp_{i}{ext}'
+        temp_path = os.path.join(folder_path, temp_name)
+        os.rename(old_path, temp_path)
+        temp_files.append((temp_path, ext))
+
+    # Теперь переименовываем в photo1, photo2... и сжимаем
+    for i, (temp_path, ext) in enumerate(temp_files):
+        new_name = f'photo{i + 1}.png'
+        new_path = os.path.join(folder_path, new_name)
+
+        before, after = compress_image(temp_path, new_path)
+
+        # Удаляем временный файл если он отличается от нового
+        if os.path.exists(temp_path) and temp_path != new_path:
+            os.remove(temp_path)
+
+        total_before += before
+        total_after += after
+        count += 1
+
+        print(f'  ✅ {new_path}  ({before:.2f} MB → {after:.2f} MB)')
+
+    return count, total_before, total_after
+
+def main():
+    total_before = 0
+    total_after = 0
+    total_count = 0
+
+    print(f'\n🐀 RATATÁ — Сжатие + переименование')
     print(f'📁 Папка: {ROOT_DIR}')
     print(f'📐 Макс. размер: {MAX_WIDTH}x{MAX_HEIGHT}')
     print(f'📊 Качество: {QUALITY}%')
-    print(f'{'🖼️  Формат: WebP' if CONVERT_TO_WEBP else '🖼️  Формат: оригинальный'}')
-    print(f'{'='*50}\n')
+    print(f'{"="*50}\n')
 
+    # Проходим по всем подпапкам
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
-        for filename in filenames:
-            ext = os.path.splitext(filename)[1].lower()
-            if ext in SUPPORTED:
-                filepath = os.path.join(dirpath, filename)
-                before, after = compress_image(filepath)
-                total_before += before
-                total_after += after
-                count += 1
+        # Проверяем есть ли фото в этой папке
+        has_photos = any(
+            os.path.splitext(f)[1].lower() in SUPPORTED 
+            for f in filenames
+        )
+        if has_photos:
+            print(f'\n📂 {dirpath}')
+            count, before, after = process_folder(dirpath)
+            total_count += count
+            total_before += before
+            total_after += after
 
-    print(f'\n{'='*50}')
+    print(f'\n{"="*50}')
     print(f'🎉 Готово!')
-    print(f'📷 Обработано: {count} файлов')
+    print(f'📷 Обработано: {total_count} файлов')
     print(f'📦 Было: {total_before:.2f} MB')
     print(f'📦 Стало: {total_after:.2f} MB')
     saved = total_before - total_after

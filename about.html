@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ИДЕИ — RATATÁ</title>
+    <title>Мы — RATATÁ</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -20,37 +20,44 @@
     <nav class="nav" id="nav">
         <div class="nav-links">
             <a href="index.html">Главная</a>
-            <a href="about.html">Мы</a>
-            <a href="ideas.html" class="active">ИДЕИ</a>
+            <a href="about.html" class="active">Мы</a>
+            <a href="ideas.html">ИДЕИ</a>
         </div>
     </nav>
 
     <section class="page-header">
-        <h1 class="glitch" data-text="ИДЕИ">ИДЕИ</h1>
+        <h1 class="glitch" data-text="Мы">Мы</h1>
     </section>
 
-    <section class="portfolio-section">
-
-        <div class="portfolio-project reveal">
-            <h3 class="project-title">Украшения</h3>
-            <div class="portfolio-grid" id="jewelryGrid"></div>
+    <section class="team-section" style="padding-top: 0;">
+        <div class="team-grid" style="justify-content: center;">
+            <div class="team-member reveal" id="pavelBlock">
+                <img src="images/Pavel.png" alt="Паша Прищепов" class="team-photo" id="pavelPhoto">
+                <h3 id="pavelName">Паша Прищепов</h3>
+            </div>
         </div>
-
-        <div class="portfolio-project reveal">
-            <h3 class="project-title">Одежда</h3>
-            <div class="portfolio-grid" id="sweatersGrid"></div>
-        </div>
-
-        <div class="portfolio-project reveal">
-            <h3 class="project-title">АИ-арт</h3>
-            <div class="portfolio-video-grid" id="aiGrid"></div>
-        </div>
-
     </section>
 
-    <div class="lightbox-overlay" id="lightbox">
-        <img src="" alt="" id="lightboxImg">
-    </div>
+    <section style="padding: 60px 60px; text-align: center;">
+        <a href="ideas.html" class="btn btn-dark">Смотреть Идеи</a>
+    </section>
+
+    <section class="contacts-section-page">
+        <div class="contacts-grid">
+            <div class="contact-item reveal">
+                <h3>Почта</h3>
+                <p><a href="mailto:pavel@ratataaa.art">pavel@ratataaa.art</a></p>
+            </div>
+            <div class="contact-item reveal">
+                <h3>Телеграм</h3>
+                <p><a href="https://t.me/shandrydan">@shandrydan</a></p>
+            </div>
+            <div class="contact-item reveal">
+                <h3>Город</h3>
+                <p>Санкт-Петербург</p>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="footer-cta reveal">

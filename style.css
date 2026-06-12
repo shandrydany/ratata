@@ -1,283 +1,174 @@
-/* =============================================
-   катамаран — море, бумага, акварель
-   ============================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ===== базовое ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: #faf8f3; /* тёплая бумага */
-    color: #10333f;
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
+  font-family: 'Neucha', cursive;
+  color: #3a3a3a;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  /* тёплый бумажный цвет */
+  background-color: #f3ecdc;
 }
 
-/* ============================================
-   АКВАРЕЛЬНЫЙ ХОЛСТ
-   ============================================ */
-
-#watercolor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    filter: blur(22px) saturate(1.15) contrast(1.02);
-}
-
-/* ============================================
-   ЗЕРНО БУМАГИ
-   ============================================ */
-
+/* ===== бумажная фактура (шум поверх страницы) ===== */
 .paper-grain {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.05;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
 }
 
-/* контент над фоном */
-.hero, .waves, .footer {
-    position: relative;
-    z-index: 2;
+/* ===== акварельные пятна ===== */
+.stain {
+  position: fixed;
+  border-radius: 50% 60% 55% 45% / 55% 45% 60% 50%;
+  filter: blur(40px);
+  mix-blend-mode: multiply; /* как краска, впитавшаяся в бумагу */
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ============================================
-   HERO
-   ============================================ */
+.stain-1 {
+  width: 480px; height: 380px;
+  top: -80px; left: -120px;
+  background: radial-gradient(ellipse at 40% 40%,
+    rgba(70, 140, 170, 0.45) 0%,
+    rgba(70, 140, 170, 0.18) 55%,
+    transparent 75%);
+}
 
+.stain-2 {
+  width: 420px; height: 360px;
+  top: 22%; right: -130px;
+  background: radial-gradient(ellipse at 60% 50%,
+    rgba(40, 110, 130, 0.40) 0%,
+    rgba(90, 160, 150, 0.15) 60%,
+    transparent 78%);
+}
+
+.stain-3 {
+  width: 360px; height: 300px;
+  bottom: 18%; left: 8%;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(110, 170, 180, 0.35) 0%,
+    rgba(110, 170, 180, 0.12) 55%,
+    transparent 75%);
+}
+
+.stain-4 {
+  width: 300px; height: 260px;
+  top: 48%; left: 42%;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(60, 130, 160, 0.25) 0%,
+    transparent 70%);
+}
+
+/* ===== шапка ===== */
 .hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 40px;
-    overflow: hidden;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 16vh 20px 0;
 }
 
-.hero h1 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: clamp(40px, 9.5vw, 160px);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: lowercase;
-    line-height: 1;
-    margin-bottom: 30px;
-    color: #0f2d38;
-    animation: fadeInUp 1s ease-out;
+/* картонные буквы */
+.title {
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: clamp(2rem, 8vw, 5.5rem);
+  color: #e9dfc8;            /* верхний слой «картона» */
+  letter-spacing: 0.05em;
+  /* слои картона: каждая тень — как слой ниже */
+  text-shadow:
+    1px 1px 0 #c9b98e,
+    2px 2px 0 #c9b98e,
+    3px 3px 0 #b3a276,
+    4px 4px 0 #b3a276,
+    5px 5px 0 #8f7f56,
+    6px 6px 0 #8f7f56,
+    9px 11px 14px rgba(60, 50, 20, 0.45); /* мягкая тень от всей буквы */
 }
 
-.hero-sub {
-    font-size: clamp(14px, 1.6vw, 26px);
-    letter-spacing: 0.6vw;
-    text-transform: lowercase;
-    color: #2a7a8c;
-    margin-bottom: 30px;
-    animation: fadeInUp 1s ease-out 0.3s;
-    animation-fill-mode: both;
+/* каждая буква чуть повёрнута — как наклеена вручную */
+.title span {
+  display: inline-block;
 }
 
-.hero-desc {
-    max-width: 500px;
-    color: #4d7d8a;
-    font-size: 16px;
-    font-style: italic;
-    animation: fadeInUp 1s ease-out 0.6s;
-    animation-fill-mode: both;
+.subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  margin-top: 24px;
+  color: #5a6c70;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
+/* ===== кораблик ===== */
+.boat {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-top: 6vh;
+  display: inline-block;
+  filter: drop-shadow(4px 6px 4px rgba(50, 60, 40, 0.35));
 }
 
-/* ============================================
-   ВОЛНЫ-АППЛИКАЦИЯ (чёрно-белая бумага)
-   ============================================ */
-
-.waves {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    margin-top: -90px; /* волны наезжают на низ hero */
+/* ===== волны-аппликации ===== */
+.sea {
+  position: relative;
+  z-index: 2;
+  height: 200px;
+  margin-top: -40px;
 }
 
 .wave {
-    display: block;
-    width: 200%;
-    height: 90px;
-    will-change: transform;
+  position: absolute;
+  bottom: 0;
+  left: -2%;
+  width: 104%;
+  height: 180px;
 }
 
-/* слои как вырезанные из бумаги — каждый отбрасывает мягкую тень */
-.wave-1 {
-    fill: #111111;
-    filter: drop-shadow(0 -5px 4px rgba(0,0,0,0.18));
-    animation: waveMove 26s linear infinite;
+/* у каждого слоя своя «картонная» тень — эффект вырезанной бумаги */
+.wave-1 path {
+  fill: #bcd8d6;
+}
+.wave-1 { filter: drop-shadow(0 -5px 0 #9bbab8) drop-shadow(0 -8px 10px rgba(40, 70, 70, 0.25)); z-index: 1; }
+
+.wave-2 path {
+  fill: #7fb3b5;
+}
+.wave-2 { filter: drop-shadow(0 -5px 0 #5f9395) drop-shadow(0 -8px 10px rgba(30, 60, 60, 0.3)); z-index: 2; bottom: -25px; }
+
+.wave-3 path {
+  fill: #45797f;
+}
+.wave-3 { filter: drop-shadow(0 -5px 0 #305a60) drop-shadow(0 -10px 12px rgba(20, 50, 50, 0.35)); z-index: 3; bottom: -55px; }
+
+/* ===== контент ===== */
+.content {
+  position: relative;
+  z-index: 3;
+  background: #45797f;
+  padding: 80px 20px 100px;
+  margin-top: -2px;
 }
 
-.wave-2 {
-    fill: #faf8f3;
-    margin-top: -55px;
-    filter: drop-shadow(0 -5px 4px rgba(0,0,0,0.22));
-    animation: waveMoveBack 19s linear infinite;
+.card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #f3ecdc;
+  border-radius: 6px;
+  padding: 40px;
+  font-size: 1.3rem;
+  /* карточка тоже как наклеенный лист */
+  box-shadow:
+    3px 3px 0 #c9b98e,
+    6px 6px 0 #8f7f56,
+    12px 16px 24px rgba(20, 40, 40, 0.4);
+  transform: rotate(-0.8deg);
 }
 
-.wave-3 {
-    fill: #10333f; /* верх "моря" футера */
-    margin-top: -50px;
-    filter: drop-shadow(0 -5px 4px rgba(0,0,0,0.2));
-    animation: waveMove 13s linear infinite;
-}
-
-@keyframes waveMove {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-}
-
-@keyframes waveMoveBack {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
-}
-
-/* ============================================
-   ФУТЕР / КОНТАКТЫ
-   ============================================ */
-
-.footer {
-    padding: 80px 60px 50px;
-    background-color: #10333f; /* глубокое море */
-    color: #faf8f3;
-    text-align: center;
-    margin-top: -2px; /* стык с волной без щели */
-}
-
-.footer h2 {
-    font-family: 'Unbounded', sans-serif;
-    font-weight: 500;
-    font-size: clamp(28px, 4.5vw, 64px);
-    text-transform: lowercase;
-    margin-bottom: 60px;
-}
-
-.contacts {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-    flex-wrap: wrap;
-    margin-bottom: 80px;
-}
-
-.contact-item h3 {
-    font-size: 14px;
-    letter-spacing: 3px;
-    text-transform: lowercase;
-    color: #5bc0be;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-.contact-item p {
-    font-size: clamp(18px, 2.5vw, 28px);
-    font-weight: 500;
-}
-
-.footer-bottom {
-    color: rgba(250, 248, 243, 0.45);
-    font-size: 14px;
-    font-style: italic;
-    min-height: 24px;
-}
-
-.footer-bottom p {
-    transition: opacity 0.4s ease;
-}
-
-/* ============================================
-   КАСТОМНЫЙ КУРСОР
-   ============================================ */
-
-.cursor-dot {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: #2a9d8f;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10001;
-    top: 0;
-    left: 0;
-    display: none;
-    will-change: transform;
-}
-
-.cursor-ring {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #2a9d8f;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    top: 0;
-    left: 0;
-    display: none;
-    will-change: transform;
-    transition: border-color 0.3s;
-}
-
-/* ============================================
-   АДАПТИВ
-   ============================================ */
-
-@media (max-width: 768px) {
-
-    .cursor-dot,
-    .cursor-ring {
-        display: none !important;
-    }
-
-    .hero h1 {
-        font-size: 11vw;
-    }
-
-    .waves {
-        margin-top: -50px;
-    }
-
-    .wave {
-        height: 50px;
-    }
-
-    .wave-2, .wave-3 {
-        margin-top: -32px;
-    }
-
-    .footer {
-        padding: 50px 25px 30px;
-    }
-
-    .footer h2 {
-        margin-bottom: 40px;
-    }
-
-    .contacts {
-        flex-direction: column;
-        gap: 30px;
-        margin-bottom: 50px;
-    }
+.card h2 {
+  font-family: 'Rubik Mono One', sans-serif;
+  font-size: 1.5rem;
+  color: #45797f;
+  margin-bottom: 16px;
 }

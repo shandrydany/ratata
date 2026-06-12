@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>катамаран</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Катамаран</title>
+
+  <!-- Шрифты: Rubik Mono One — для заголовка, Neucha — для текста -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Neucha&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- акварельный фон -->
-    <canvas id="watercolor"></canvas>
-    <!-- зерно бумаги -->
-    <div class="paper-grain"></div>
+  <!-- акварельные пятна на фоне -->
+  <div class="stain stain-1"></div>
+  <div class="stain stain-2"></div>
+  <div class="stain stain-3"></div>
+  <div class="stain stain-4"></div>
 
-    <section class="hero">
-        <h1>катамаран</h1>
-        <p class="hero-sub">творческая мастерская</p>
-        <p class="hero-desc random-phrase"></p>
+  <header class="hero">
+    <h1 class="title" id="title">КАТАМАРАН</h1>
+    <p class="subtitle">путешествие по бумажному морю</p>
+
+    <!-- бумажный кораблик -->
+    <div class="boat" id="boat">⛵</div>
+  </header>
+
+  <!-- волны-аппликации из «картона» -->
+  <div class="sea">
+    <svg class="wave wave-1" viewBox="0 0 1440 180" preserveAspectRatio="none">
+      <path d="M0,90 C180,30 360,150 540,90 C720,30 900,150 1080,90 C1260,30 1380,120 1440,90 L1440,180 L0,180 Z"/>
+    </svg>
+    <svg class="wave wave-2" viewBox="0 0 1440 180" preserveAspectRatio="none">
+      <path d="M0,100 C200,160 400,40 600,100 C800,160 1000,40 1200,100 C1320,135 1400,80 1440,100 L1440,180 L0,180 Z"/>
+    </svg>
+    <svg class="wave wave-3" viewBox="0 0 1440 180" preserveAspectRatio="none">
+      <path d="M0,110 C160,60 320,150 480,110 C640,70 800,150 960,110 C1120,70 1280,150 1440,110 L1440,180 L0,180 Z"/>
+    </svg>
+  </div>
+
+  <main class="content">
+    <section class="card">
+      <h2>О проекте</h2>
+      <p>Здесь будет текст про катамаран. Замени его на свой.</p>
     </section>
+  </main>
 
-    <!-- волны-аппликация -->
-    <div class="waves" aria-hidden="true">
-        <svg class="wave wave-1" viewBox="0 0 2400 140" preserveAspectRatio="none">
-            <path d="M0,70 C200,115 400,25 600,70 C800,115 1000,25 1200,70 C1400,115 1600,25 1800,70 C2000,115 2200,25 2400,70 L2400,140 L0,140 Z"/>
-        </svg>
-        <svg class="wave wave-2" viewBox="0 0 2400 140" preserveAspectRatio="none">
-            <path d="M0,70 C200,115 400,25 600,70 C800,115 1000,25 1200,70 C1400,115 1600,25 1800,70 C2000,115 2200,25 2400,70 L2400,140 L0,140 Z"/>
-        </svg>
-        <svg class="wave wave-3" viewBox="0 0 2400 140" preserveAspectRatio="none">
-            <path d="M0,70 C200,115 400,25 600,70 C800,115 1000,25 1200,70 C1400,115 1600,25 1800,70 C2000,115 2200,25 2400,70 L2400,140 L0,140 Z"/>
-        </svg>
-    </div>
+  <!-- бумажная фактура поверх всего -->
+  <div class="paper-grain"></div>
 
-    <!-- контакты -->
-    <footer class="footer">
-        <h2>контакты</h2>
-        <div class="contacts">
-            <div class="contact-item">
-                <h3>почта</h3>
-                <p>hello@katamaran.art</p>
-            </div>
-            <div class="contact-item">
-                <h3>телефон</h3>
-                <p>+7 900 000-00-00</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p class="random-footer"></p>
-        </div>
-    </footer>
-
-    <div class="cursor-dot" id="cursorDot"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-
-    <script src="chaos.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
